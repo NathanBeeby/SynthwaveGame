@@ -1,0 +1,377 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\renderer\\bloomrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\renderer\\bloomrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\renderer\\neonmaterialsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\renderer\\neonmaterialsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\renderer\\outrunscaler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\renderer\\outrunscaler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\renderer\\fogsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\renderer\\fogsystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\math\\spline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\math\\spline.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\math\\spatialpartition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\math\\spatialpartition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\math\\noise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\math\\noise.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\hud\\damageshud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\hud\\damageshud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\core\\modelloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\core\\modelloader.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\core\\inputhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\core\\inputhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\terrain\\terraintype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\terrain\\terraintype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\terrain\\terrainchunk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\terrain\\terrainchunk.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\sky\\synthwavesun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\sky\\synthwavesun.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\sky\\stars.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\sky\\stars.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\sky\\skysystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\sky\\skysystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\roads\\splineroad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\roads\\splineroad.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\roads\\roadmeshrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\roads\\roadmeshrenderer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\roads\\roadmeshbuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\roads\\roadmeshbuilder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\roads\\roadmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\roads\\roadmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\renderer\\shaderlibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\renderer\\shaderlibrary.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|c:\\users\\natha\\documents\\github\\synthwave\\synthwave\\synthwave.core\\classes\\renderer\\postprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D9852015-176C-4E89-8214-4FED81FC0E9E}|Synthwave\\Synthwave.Core\\Synthwave.Core.csproj|solutionrelative:synthwave\\synthwave.core\\classes\\renderer\\postprocessing.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SpatialPartition.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Math\\SpatialPartition.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Math\\SpatialPartition.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Math\\SpatialPartition.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Math\\SpatialPartition.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:13:18.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Noise.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Math\\Noise.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Math\\Noise.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Math\\Noise.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Math\\Noise.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:13:14.333Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DamagesHUD.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\HUD\\DamagesHUD.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\HUD\\DamagesHUD.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\HUD\\DamagesHUD.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\HUD\\DamagesHUD.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:13:13.267Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Spline.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Math\\Spline.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Math\\Spline.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Math\\Spline.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Math\\Spline.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC4AAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:00:25.44Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BloomRenderer.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\BloomRenderer.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\BloomRenderer.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\BloomRenderer.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\BloomRenderer.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAywEMAAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:04:40.423Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FogSystem.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\FogSystem.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\FogSystem.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\FogSystem.cs*",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\FogSystem.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:05:01.97Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "NeonMaterialSystem.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\NeonMaterialSystem.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\NeonMaterialSystem.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\NeonMaterialSystem.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\NeonMaterialSystem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:05:23.074Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "OutrunScaler.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\OutrunScaler.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\OutrunScaler.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\OutrunScaler.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\OutrunScaler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:05:38.592Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ModelLoader.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Core\\ModelLoader.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Core\\ModelLoader.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Core\\ModelLoader.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Core\\ModelLoader.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:13:09.363Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "InputHandler.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Core\\InputHandler.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Core\\InputHandler.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Core\\InputHandler.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Core\\InputHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:13:05.397Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "TerrainType.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Terrain\\TerrainType.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Terrain\\TerrainType.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Terrain\\TerrainType.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Terrain\\TerrainType.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:12:54.213Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "TerrainChunk.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Terrain\\TerrainChunk.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Terrain\\TerrainChunk.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Terrain\\TerrainChunk.cs*",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Terrain\\TerrainChunk.cs*",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABYAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:12:28.082Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "SynthwaveSun.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Sky\\SynthwaveSun.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Sky\\SynthwaveSun.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Sky\\SynthwaveSun.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Sky\\SynthwaveSun.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAA9wEAAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:11:14.375Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Stars.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Sky\\Stars.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Sky\\Stars.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Sky\\Stars.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Sky\\Stars.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAwwDUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:11:02.621Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "SkySystem.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Sky\\SkySystem.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Sky\\SkySystem.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Sky\\SkySystem.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Sky\\SkySystem.cs",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAWwGwAAAAxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:10:05.315Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "SplineRoad.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Roads\\SplineRoad.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Roads\\SplineRoad.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Roads\\SplineRoad.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Roads\\SplineRoad.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:09:58.377Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "RoadMeshRenderer.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadMeshRenderer.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadMeshRenderer.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadMeshRenderer.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadMeshRenderer.cs",
+              "ViewState": "AgIAAE0AAAAAAAAAAAAwwGoAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:08:11.526Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "RoadMeshBuilder.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadMeshBuilder.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadMeshBuilder.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadMeshBuilder.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadMeshBuilder.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:08:08.043Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "RoadManager.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadManager.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadManager.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadManager.cs*",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Roads\\RoadManager.cs*",
+              "ViewState": "AgIAABkAAAAAAAAAAAAgwB0AAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:07:46.648Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "ShaderLibrary.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\ShaderLibrary.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\ShaderLibrary.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\ShaderLibrary.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\ShaderLibrary.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:07:07.975Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "PostProcessing.cs",
+              "DocumentMoniker": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\PostProcessing.cs",
+              "RelativeDocumentMoniker": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\PostProcessing.cs",
+              "ToolTip": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.Core\\Classes\\Renderer\\PostProcessing.cs",
+              "RelativeToolTip": "Synthwave\\Synthwave.Core\\Classes\\Renderer\\PostProcessing.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-10T20:06:09.657Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

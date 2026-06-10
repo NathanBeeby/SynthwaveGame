@@ -1,0 +1,4 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Fonts/Hud.spritefont","C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/bin/Windows/Synthwave/Fonts/Hud.xnb","FontDescriptionProcessor","SpriteFontContent",2744,1071400,0.1667627
+"C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/Cars/cybertruck.fbx","C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/bin/Windows/Synthwave/Models/Cars/cybertruck.xnb","ModelProcessor","ModelContent",507900,930269,0.1645991
+"C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/Cars/R8.fbx","C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/bin/Windows/Synthwave/Models/Cars/R8.xnb","ModelProcessor","ModelContent",21503564,25671928,2.4114308

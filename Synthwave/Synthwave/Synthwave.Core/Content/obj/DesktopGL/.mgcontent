@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SourceFileCollection xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Profile>Reach</Profile>
+  <Platform>DesktopGL</Platform>
+  <Config />
+  <SourceFiles>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Fonts/Hud.spritefont</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Maps/WorldMap.png</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/Cars/cybertruck.fbx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/Cars/R8.fbx</File>
+  </SourceFiles>
+  <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File>Models/Cars/cybertruck</File>
+    <File>Models/Cars/R8</File>
+  </DestFiles>
+</SourceFileCollection>
