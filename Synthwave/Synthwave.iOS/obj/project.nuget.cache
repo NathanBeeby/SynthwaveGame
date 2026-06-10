@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "dgSpecHash": "gxfKBSB6UDw=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\natha\\Documents\\Github\\Synthwave\\Synthwave\\Synthwave.iOS\\Synthwave.iOS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\natha\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.26\\microsoft.net.illink.tasks.8.0.26.nupkg.sha512",
+    "C:\\Users\\natha\\.nuget\\packages\\microsoft.win32.systemevents\\10.0.8\\microsoft.win32.systemevents.10.0.8.nupkg.sha512",
+    "C:\\Users\\natha\\.nuget\\packages\\monogame.content.builder.task\\3.8.4.1\\monogame.content.builder.task.3.8.4.1.nupkg.sha512",
+    "C:\\Users\\natha\\.nuget\\packages\\monogame.framework.ios\\3.8.4.1\\monogame.framework.ios.3.8.4.1.nupkg.sha512",
+    "C:\\Users\\natha\\.nuget\\packages\\monogame.library.openal\\1.24.3.2\\monogame.library.openal.1.24.3.2.nupkg.sha512",
+    "C:\\Users\\natha\\.nuget\\packages\\system.drawing.common\\10.0.8\\system.drawing.common.10.0.8.nupkg.sha512",
+    "C:\\Users\\natha\\.nuget\\packages\\microsoft.ios.ref.net8.0_18.0\\18.0.8324\\microsoft.ios.ref.net8.0_18.0.18.0.8324.nupkg.sha512",
+    "C:\\Users\\natha\\.nuget\\packages\\microsoft.ios.runtime.iossimulator-x64.net8.0_18.0\\18.0.8324\\microsoft.ios.runtime.iossimulator-x64.net8.0_18.0.18.0.8324.nupkg.sha512"
+  ],
+  "logs": []
+}

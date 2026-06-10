@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.37203.1 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthwave.Android", "Synthwave\Synthwave.Android\Synthwave.Android.csproj", "{78CC1B1F-5D20-4623-A8E3-3F0FFBA37C45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthwave.Core", "Synthwave\Synthwave.Core\Synthwave.Core.csproj", "{D9852015-176C-4E89-8214-4FED81FC0E9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthwave.DesktopGL", "Synthwave\Synthwave.DesktopGL\Synthwave.DesktopGL.csproj", "{19FDAD4D-2D02-4216-9DAF-CACFA1894340}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthwave.iOS", "Synthwave\Synthwave.iOS\Synthwave.iOS.csproj", "{F1E20D48-35AB-42F9-84FB-484B0296A859}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Synthwave.WindowsDX", "Synthwave\Synthwave.WindowsDX\Synthwave.WindowsDX.csproj", "{D5EBD528-13AC-4CEC-BF2E-3D53466A513A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{78CC1B1F-5D20-4623-A8E3-3F0FFBA37C45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78CC1B1F-5D20-4623-A8E3-3F0FFBA37C45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78CC1B1F-5D20-4623-A8E3-3F0FFBA37C45}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{78CC1B1F-5D20-4623-A8E3-3F0FFBA37C45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78CC1B1F-5D20-4623-A8E3-3F0FFBA37C45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78CC1B1F-5D20-4623-A8E3-3F0FFBA37C45}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D9852015-176C-4E89-8214-4FED81FC0E9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9852015-176C-4E89-8214-4FED81FC0E9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9852015-176C-4E89-8214-4FED81FC0E9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9852015-176C-4E89-8214-4FED81FC0E9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19FDAD4D-2D02-4216-9DAF-CACFA1894340}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19FDAD4D-2D02-4216-9DAF-CACFA1894340}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19FDAD4D-2D02-4216-9DAF-CACFA1894340}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19FDAD4D-2D02-4216-9DAF-CACFA1894340}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E20D48-35AB-42F9-84FB-484B0296A859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1E20D48-35AB-42F9-84FB-484B0296A859}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1E20D48-35AB-42F9-84FB-484B0296A859}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F1E20D48-35AB-42F9-84FB-484B0296A859}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1E20D48-35AB-42F9-84FB-484B0296A859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1E20D48-35AB-42F9-84FB-484B0296A859}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{D5EBD528-13AC-4CEC-BF2E-3D53466A513A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5EBD528-13AC-4CEC-BF2E-3D53466A513A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5EBD528-13AC-4CEC-BF2E-3D53466A513A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5EBD528-13AC-4CEC-BF2E-3D53466A513A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B3D46159-92B0-471D-A6E9-B8D6163D30B4}
+	EndGlobalSection
+EndGlobal
