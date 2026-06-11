@@ -49,10 +49,9 @@ public class Stars
             verts.Add(new VertexPositionColor(new Vector3(x, y, 0.999f), c));
         }
 
-        _verts = verts.ToArray();
+        _verts = [.. verts];
     }
 
-    /// <param name="visibility">0=invisible (day), 1=full (night)</param>
     public void Draw(GraphicsDevice device, float visibility)
     {
         if (visibility < 0.01f) return;

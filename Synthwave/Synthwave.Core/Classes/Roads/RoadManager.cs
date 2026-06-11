@@ -32,7 +32,7 @@ public class RoadManager
 
     private void BuildRoadEdges()
     {
-        List<VertexPositionColor> verts = new();
+        List<VertexPositionColor> verts = [];
 
         foreach (var point in road.Points)
         {
@@ -47,7 +47,7 @@ public class RoadManager
 
     private void BuildCenterLine()
     {
-        List<VertexPositionColor> verts = new();
+        List<VertexPositionColor> verts = [];
 
         foreach (var point in road.Points)
         {

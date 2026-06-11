@@ -63,7 +63,7 @@ public class TerrainChunk
         return [.. verts];
     }
 
-    private Color GetColor(TerrainType type)
+    private static Color GetColor(TerrainType type)
     {
         return type switch
         {

@@ -78,9 +78,9 @@ public class SynthwaveWorld
 
             // Speed tweaks
             if (input.WasJustPressed(Keys.OemPlus) || input.WasJustPressed(Keys.Add))
-                camera.MoveSpeed = MathHelper.Min(camera.MoveSpeed + 50f, 2000f);
+                camera.Vehicle.CurrentSpeed = MathHelper.Min(camera.Vehicle.CurrentSpeed + 50f, 2000f);
             if (input.WasJustPressed(Keys.OemMinus) || input.WasJustPressed(Keys.Subtract))
-                camera.MoveSpeed = MathHelper.Max(camera.MoveSpeed - 50f, 30f);
+                camera.Vehicle.CurrentSpeed = MathHelper.Max(camera.Vehicle.CurrentSpeed - 50f, 30f);
         }
 #endif
 

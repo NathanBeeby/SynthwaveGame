@@ -6,10 +6,13 @@ namespace Synthwave.Core.Classes.Math;
 
 public class SpatialPartition<T>(float cellSize, Func<T, Vector2> getPos)
 {
+    #region Properties
     private readonly Dictionary<(int, int), List<T>> grid = [];
     private readonly float cellSize = cellSize;
     private readonly Func<T, Vector2> getPos = getPos;
+    #endregion
 
+    #region Methods
     public void Insert(T item)
     {
         var p = getPos(item);
@@ -43,4 +46,5 @@ public class SpatialPartition<T>(float cellSize, Func<T, Vector2> getPos)
     {
         return ((int)(p.X / cellSize), (int)(p.Y / cellSize));
     }
+    #endregion
 }

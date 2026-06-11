@@ -18,12 +18,10 @@ public class SkySystem
 
     public float DaySpeed = 0.008f; // full cycle ≈ 125 s
 
-    // ── Sub-systems ───────────────────────────────────────────────────────
     private Stars _stars;
     private SynthwaveSun _sun;
     private BasicEffect _skyFx;
 
-    // Reused arrays for sky gradient — no per-frame alloc
     private readonly VertexPositionColor[] _skyVerts = new VertexPositionColor[12];
     #endregion
 
@@ -45,7 +43,6 @@ public class SkySystem
             Projection = Matrix.Identity
         };
 
-        // Precompute celestial state at t=0 so nothing is uninitialised
         ComputeCelestialBodies();
         ComputeSkyColors();
     }
@@ -106,6 +103,7 @@ public class SkySystem
 
     public float GetStarVisibility() => MathHelper.Clamp(1f - GetSunIntensity() * 4f, 0f, 1f);
 
+    // TODO: Potentially add camera into DrawSky
     public void DrawSky(GraphicsDevice device, Camera3D camera)
     {
         var prevDepth = device.DepthStencilState;
@@ -142,9 +140,9 @@ public class SkySystem
 
     private void BuildSkyVerts()
     {
-        Color top = new Color(SkyColor);
-        Color mid = new Color(HorizonColor);
-        Color bot = new Color(NightColor * 0.5f);  // dark ground fringe
+        Color top = new(SkyColor);
+        Color mid = new(HorizonColor);
+        Color bot = new(NightColor * 0.5f);  // dark ground fringe
 
         // Lower band: bottom → horizon  (screen Y: -1 → 0)
         _skyVerts[0] = new VertexPositionColor(new Vector3(-1f, -1f, 1f), bot);

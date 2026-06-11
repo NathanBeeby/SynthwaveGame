@@ -17,7 +17,7 @@ public class BloomRenderer
     private BasicEffect _effect;
 
     // Line vertex pairs — always even count
-    private readonly List<VertexPositionColor> _lineBuffer = new();
+    private readonly List<VertexPositionColor> _lineBuffer = [];
 
     public NeonMaterialSystem Neon = new();
     public FogSystem Fog = new();
@@ -65,7 +65,7 @@ public class BloomRenderer
             p2 = terrain.ProjectToTerrain(p2);
 
             float dist = Vector3.Distance(CameraPosition, p);
-            Vector3 color = Neon.Evaluate(t, 1.5f) + AmbientLight;
+            Vector3 color = NeonMaterialSystem.Evaluate(t, 1.5f) + AmbientLight;
             color = Fog.Apply(color, dist);
 
             DrawLine(p, p2, new Color(color));

@@ -5,8 +5,11 @@ namespace Synthwave.Core.Classes.Math;
 
 public class Spline
 {
-    public List<Vector3> Points = new();
+    #region Properties
+    public List<Vector3> Points = [];
+    #endregion
 
+    #region Methods
     public Vector3 Evaluate(float t)
     {
         if (Points.Count == 0) return Vector3.Zero;
@@ -41,4 +44,5 @@ public class Spline
             (-p0 + 3f * p1 - 3f * p2 + p3) * t3
         );
     }
+    #endregion
 }

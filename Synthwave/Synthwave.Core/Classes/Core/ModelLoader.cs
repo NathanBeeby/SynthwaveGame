@@ -5,23 +5,15 @@ using System.Linq;
 
 namespace Synthwave.Core.Classes.Core;
 
-public class ModelLoader
+public class ModelLoader(ContentManager content)
 {
     #region Properties
     private readonly Model carModel;
-    private readonly ContentManager Content;
-    #endregion
-
-    #region Constructor
-    public ModelLoader(ContentManager content)
-    {
-        Content = content;
-       // carModel = Content.Load<Model>("Models/Cars/R8");
-    }
+    private readonly ContentManager Content = content;
     #endregion
 
     #region Methods
-    private void DrawModel(Model model, Matrix world)
+    private static void DrawModel(Model model, Matrix world)
     {
         if (model == null) return;
         foreach (ModelMesh mesh in model.Meshes)

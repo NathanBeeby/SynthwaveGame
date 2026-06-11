@@ -8,10 +8,13 @@ namespace Synthwave.Core.Classes.Roads;
 
 public class RoadMeshRenderer
 {
+    #region Properties
     private readonly GraphicsDevice device;
     private readonly BasicEffect effect;
     private Camera3D camera;
+    #endregion
 
+    #region Constructor
     public RoadMeshRenderer(GraphicsDevice graphicsDevice)
     {
         device = graphicsDevice;
@@ -22,7 +25,9 @@ public class RoadMeshRenderer
             LightingEnabled = false
         };
     }
+    #endregion
 
+    #region Methods
     public void SetCamera(Camera3D cam) => camera = cam;
 
     public void DrawRoadMesh(Spline road, TerrainSystem terrain)
@@ -99,4 +104,5 @@ public class RoadMeshRenderer
             );
         }
     }
+    #endregion
 }

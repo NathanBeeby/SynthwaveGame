@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Synthwave.Core.Classes;
 using Synthwave.Core.Classes.Core;
+using Synthwave.Core.Classes.HUD;
 using Synthwave.Core.Classes.World;
 using Synthwave.Core.Localization;
 using System;
@@ -14,10 +15,12 @@ namespace Synthwave.Core;
 public class SynthwaveGame : Game
 {
     #region Properties
-    private GraphicsDeviceManager _graphics;
+    private readonly GraphicsDeviceManager _graphics;
     private Camera3D _camera;
     private InputHandler _input;
     private SynthwaveWorld _world;
+    private HUD _hud;
+    private SpriteBatch _spriteBatch;
 
     public readonly static bool IsMobile = OperatingSystem.IsAndroid() || OperatingSystem.IsIOS();
     public readonly static bool IsDesktop = OperatingSystem.IsMacOS() || OperatingSystem.IsLinux() || OperatingSystem.IsWindows();
@@ -52,16 +55,20 @@ public class SynthwaveGame : Game
         var selectedLanguage = LocalizationManager.DEFAULT_CULTURE_CODE;
         LocalizationManager.SetCulture(selectedLanguage);
 
-        _input = new InputHandler();
-        _camera = new Camera3D(GraphicsDevice);
-        _world = new SynthwaveWorld();
-        _world.Initialize(GraphicsDevice, _camera);
     }
 
     protected override void LoadContent()
     {
         base.LoadContent();
 
+        _input = new InputHandler();
+        _camera = new Camera3D(GraphicsDevice);
+        _world = new SynthwaveWorld();
+        _world.Initialize(GraphicsDevice, _camera);
+        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _hud = new HUD();
+
+        _hud.Load(Content);
         // worldLoader ??= new WorldLoader(Content, GraphicsDevice);
       //  modelLoader ??= new ModelLoader(Content);
     }
@@ -97,6 +104,7 @@ public class SynthwaveGame : Game
         GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
         _world.Draw(GraphicsDevice, _camera);
+        _hud.Draw(_spriteBatch,_camera.Vehicle);
 
         base.Draw(gameTime);
     }
@@ -113,4 +121,30 @@ Roads overlap — need road deduplication at intersections (blend/merge geometry
 Roads wider × 2, yellow colour, curbs either side (raised edge strips), no curbs on roundabouts
 Ground grid: glowing pulsing lines — drive the colour via a PulseTime uniform animated each frame, encode terrain biome into line colour (pink=default, green=grassland, yellow=sand, blue=water), rebuild the grid each frame since line colours depend on world position + biome
  
+-	Add First Person & Third Person View
+-	Add NOS and Drifting ability + Accelerations.
+
+-	Add Weather Controls
+-	Add in different Biomes 
+-	Collectable Coins
+-	Add in Shader & Include Rubber on floor in dry, or rain on floor / Puddles when raining.
+-   Add Shader for reflective roads, road center line and side reservations in neon yellow and neon light blue
+-	Add algorithm for roads, Implement neon road markings at the side of the roads and add a centrer line road markings.
+-   Position user always on the road.
+-	IMPLEMENT STREET LIGHTS + NEON LED
+
+Mission Types:
+-	Collections & mission objects
+-	Pit Lanes (Tyre ware)
+-	Hit & Run elements
+-	Collect Coins
+-	Purchase new vehicles or parts (Go to garage)
+-	Vibrate on hit on phone
+-	Add Weather
+-	When not raining, add rubber tyre on floor
+-	Points for Nitros 
+-	Ability to drift
+-	Add secret level for secret mission success
+-	Thunder & Lightning / Weather switches
+
  */

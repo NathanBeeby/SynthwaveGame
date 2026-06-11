@@ -5,10 +5,13 @@ namespace Synthwave.Core.Classes.Renderer;
 
 public class PostProcessing
 {
+    // TODO: Fix PostProcessing to add Glow effect on lines. Add Device into apply
+    #region Properties
     public float BloomIntensity = 1.6f;
-
     private RenderTarget2D sceneTarget;
+    #endregion
 
+    #region Methods
     public void Initialize(GraphicsDevice device)
     {
         sceneTarget = new RenderTarget2D(
@@ -24,7 +27,7 @@ public class PostProcessing
         return sceneTarget;
     }
 
-    public void End(GraphicsDevice device)
+    public static void End(GraphicsDevice device)
     {
         device.SetRenderTarget(null);
     }
@@ -38,4 +41,5 @@ public class PostProcessing
 
         spriteBatch.End();
     }
+    #endregion
 }
