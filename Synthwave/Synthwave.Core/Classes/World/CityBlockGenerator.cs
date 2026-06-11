@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Synthwave.Core.Classes.Core.Models;
 using System;
 using System.Collections.Generic;
 
@@ -6,17 +7,8 @@ namespace Synthwave.Core.Classes.World;
 
 public class CityBlockGenerator
 {
-    #region Classes
-    public class Block
-    {
-        public Vector3 Position;
-        public Vector2 Size;
-        public int Density;
-    }
-    #endregion
-
     #region Properties
-    public List<Block> Blocks = new();
+    public List<Block> Blocks = [];
     #endregion
 
     #region Methods

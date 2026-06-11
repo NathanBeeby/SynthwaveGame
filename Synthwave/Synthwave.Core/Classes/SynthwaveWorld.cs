@@ -1,12 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Synthwave.Core.Classes.Core;
+using Synthwave.Core.Classes.Core.Models;
 using Synthwave.Core.Classes.Renderer;
-using Synthwave.Core.Classes.Roads;
-using Synthwave.Core.Classes.Sky;
-using Synthwave.Core.Classes.Terrain;
 using Synthwave.Core.Classes.World;
+using Synthwave.Core.Classes.World.Sky;
+using Synthwave.Core.Classes.World.Terrain;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Synthwave.Core.Classes;
@@ -28,13 +31,21 @@ public class SynthwaveWorld
     private BasicEffect _roadFx;
     private BasicEffect _carFx;
     private BasicEffect _blockFx;
+    private BasicEffect _fsqEffect;
+
+    private VertexPositionTexture[] _fullscreenQuad;
+
+    RenderTarget2D mainRT;
+    RenderTarget2D neonRT;
+    Effect neonMaskEffect;
+    Effect postProcessEffect;
 
     private readonly VertexPositionColor[] _carVerts = new VertexPositionColor[2];
     private readonly VertexPositionColor[] _blockVerts = new VertexPositionColor[2];
     #endregion
 
     #region Methods
-    public void Initialize(GraphicsDevice device, Camera3D camera)
+    public void Initialize(ContentManager content, GraphicsDevice device, Camera3D camera)
     {
         Terrain = new TerrainSystem();
         Roads = new RoadSplineSystem();
@@ -61,6 +72,34 @@ public class SynthwaveWorld
         _roadFx = MakeEffect(device);
         _carFx = MakeEffect(device);
         _blockFx = MakeEffect(device);
+
+        mainRT = new RenderTarget2D(device,device.PresentationParameters.BackBufferWidth,device.PresentationParameters.BackBufferHeight);
+
+        neonRT = new RenderTarget2D(device,device.PresentationParameters.BackBufferWidth,device.PresentationParameters.BackBufferHeight);
+
+        _fsqEffect = new BasicEffect(device)
+        {
+            TextureEnabled = true,
+            VertexColorEnabled = false,
+            World = Matrix.Identity,
+            View = Matrix.Identity,
+            Projection = Matrix.Identity
+        }; 
+
+        _fullscreenQuad =
+        [
+    // X,Y,Z       U,V
+    new VertexPositionTexture(new Vector3(-1,  1, 0), new Vector2(0, 0)),
+    new VertexPositionTexture(new Vector3( 1,  1, 0), new Vector2(1, 0)),
+    new VertexPositionTexture(new Vector3(-1, -1, 0), new Vector2(0, 1)),
+
+    new VertexPositionTexture(new Vector3(-1, -1, 0), new Vector2(0, 1)),
+    new VertexPositionTexture(new Vector3( 1,  1, 0), new Vector2(1, 0)),
+    new VertexPositionTexture(new Vector3( 1, -1, 0), new Vector2(1, 1)),
+];
+
+        neonMaskEffect = content.Load<Effect>("Shaders/NeonMask");
+        postProcessEffect = content.Load<Effect>("Shaders/PostProcessingShader");
     }
 
     private static BasicEffect MakeEffect(GraphicsDevice device) => new(device) { VertexColorEnabled = true, LightingEnabled = false };
@@ -96,8 +135,8 @@ public class SynthwaveWorld
         Lighting.Update(Sky);
         Lighting.Apply(Bloom);
     }
-
-    public void Draw(GraphicsDevice device, Camera3D camera)
+    /*
+    public void Draw(GraphicsDevice device, Camera3D camera, GameTime gameTime)
     {
         Sky.DrawSky(device, camera);
 
@@ -105,7 +144,7 @@ public class SynthwaveWorld
         device.RasterizerState = RasterizerState.CullNone;
         device.BlendState = BlendState.Opaque;
 
-        Ground.Draw(camera);
+        Ground.Draw(camera, Terrain, gameTime);
 
         var chunks = Infinite.GetVisibleChunks(camera.Position);
 
@@ -162,8 +201,98 @@ public class SynthwaveWorld
         foreach (var block in City.Blocks)
             DrawBlockGPU(device, block);
     }
+    */
+    private void DrawRoads(GraphicsDevice device, Camera3D camera, List<WorldChunk> chunks)
+    {
+        _roadFx.View = camera.View;
+        _roadFx.Projection = camera.Projection;
+        _roadFx.World = Matrix.Identity;
 
-    private void DrawCarGPU(GraphicsDevice device, TrafficSystem.Car car)
+        foreach (var chunk in chunks)
+        {
+            if (!chunk.IsBuilt || chunk.RoadVB == null) continue;
+
+            device.SetVertexBuffer(chunk.RoadVB);
+            device.Indices = chunk.RoadIB;
+
+            foreach (var pass in _roadFx.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                device.DrawIndexedPrimitives(
+                    PrimitiveType.TriangleList,
+                    0, 0,
+                    chunk.RoadIB.IndexCount / 3
+                );
+            }
+        }
+    }
+
+    public void Draw(GraphicsDevice device, Camera3D camera, GameTime gameTime)
+    {
+        device.SetRenderTarget(mainRT);
+        device.Clear(Color.Black);
+
+        Sky.DrawSky(device, camera);
+
+        device.DepthStencilState = DepthStencilState.Default;
+        device.RasterizerState = RasterizerState.CullNone;
+        device.BlendState = BlendState.Opaque;
+
+        Ground.Draw(camera, gameTime);
+
+        var chunks = Infinite.GetVisibleChunks(camera.Position);
+
+        DrawTerrain(device, camera, chunks);
+        DrawRoads(device, camera, chunks);
+
+        foreach (var car in Traffic.Cars)
+            DrawCarGPU(device, car);
+
+        foreach (var block in City.Blocks)
+            DrawBlockGPU(device, block);
+
+        device.SetRenderTarget(neonRT);
+        device.Clear(Color.Black);
+
+        Ground.DrawLinesWithEffect(camera, neonMaskEffect);
+        device.SetRenderTarget(null);
+        device.DepthStencilState = DepthStencilState.None;
+        device.RasterizerState = RasterizerState.CullNone;
+        device.BlendState = BlendState.Opaque;
+
+        // bind textures
+        postProcessEffect.Parameters["SceneTex"].SetValue(mainRT);
+        postProcessEffect.Parameters["BloomTex"].SetValue(neonRT);
+
+        foreach (var pass in postProcessEffect.CurrentTechnique.Passes)
+        {
+            pass.Apply();
+            device.DrawUserPrimitives(PrimitiveType.TriangleList,_fullscreenQuad,0,2);
+        }
+    }
+
+    private void DrawTerrain(GraphicsDevice device, Camera3D camera, List<WorldChunk> chunks)
+    {
+        _terrainFx.View = camera.View;
+        _terrainFx.Projection = camera.Projection;
+        _terrainFx.World = Matrix.Identity;
+
+        foreach (var chunk in chunks)
+        {
+            if (!chunk.IsBuilt || chunk.TerrainVB == null) continue;
+
+            device.SetVertexBuffer(chunk.TerrainVB);
+            device.Indices = chunk.TerrainIB;
+
+            foreach (var pass in _terrainFx.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+                device.DrawIndexedPrimitives(PrimitiveType.LineList,0, 0,chunk.TerrainIB.IndexCount / 2);
+            }
+        }
+    }
+
+    private void DrawCarGPU(GraphicsDevice device, Car car)
     {
         _carVerts[0] = new VertexPositionColor(car.Position, Color.Cyan);
         _carVerts[1] = new VertexPositionColor(car.Position + Vector3.Up * 2, Color.Cyan);
@@ -175,7 +304,7 @@ public class SynthwaveWorld
         }
     }
 
-    private void DrawBlockGPU(GraphicsDevice device, CityBlockGenerator.Block block)
+    private void DrawBlockGPU(GraphicsDevice device, Block block)
     {
         _blockVerts[0] = new VertexPositionColor(block.Position, Color.DeepPink);
         _blockVerts[1] = new VertexPositionColor(block.Position + Vector3.Up * block.Density * 2, Color.DeepPink);
@@ -189,3 +318,14 @@ public class SynthwaveWorld
 
     #endregion
 }
+
+/*
+ CREATE HLSL SHADER PROPER:
+
+ true emissive bloom mask
+screen-space blur glow
+color grading per biome
+heat distortion on sand
+water shimmer for sea biome
+ 
+ */

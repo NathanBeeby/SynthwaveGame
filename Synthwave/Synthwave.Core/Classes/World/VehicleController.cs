@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Synthwave.Core.Classes.Core;
+using Synthwave.Core.Classes.Core.Enums;
 using System;
 
 namespace Synthwave.Core.Classes.World;

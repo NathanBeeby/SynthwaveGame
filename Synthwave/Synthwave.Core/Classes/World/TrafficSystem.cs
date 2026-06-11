@@ -1,5 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
-using Synthwave.Core.Classes.Math;
+using Synthwave.Core.Classes.Core.Models;
 using System;
 using System.Collections.Generic;
 
@@ -7,18 +7,8 @@ namespace Synthwave.Core.Classes.World;
 
 public class TrafficSystem
 {
-    #region Classes
-    public class Car
-    {
-        public Spline Road;
-        public float T;
-        public float Speed;
-        public Vector3 Position;
-    }
-    #endregion
-
     #region Properties
-    public List<Car> Cars = new();
+    public List<Car> Cars = [];
 
     private TerrainSystem _terrain;
     #endregion

@@ -1,16 +1,18 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Synthwave.Core.Classes.Terrain;
+using Synthwave.Core.Classes.Core.Enums;
 
 namespace Synthwave.Core.Classes.World;
 
 public class HeightMap
 {
+    #region Properties
     private readonly Color[] pixels;
-
     public int Width { get; }
     public int Height { get; }
+    #endregion
 
+    #region Constructor
     public HeightMap(Texture2D texture)
     {
         Width = texture.Width;
@@ -19,7 +21,9 @@ public class HeightMap
         pixels = new Color[Width * Height];
         texture.GetData(pixels);
     }
+    #endregion
 
+    #region Methods
     public float GetHeight(int x, int y)
     {
         x = System.Math.Clamp(x, 0, Width - 1);
@@ -37,4 +41,5 @@ public class HeightMap
         if (h < 0.40f) return TerrainType.Road;
         return TerrainType.Land;
     }
+    #endregion
 }

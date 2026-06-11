@@ -1,8 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Synthwave.Core.Classes.Math;
-using Synthwave.Core.Classes.Roads;
-using Synthwave.Core.Classes.Terrain;
+using Synthwave.Core.Classes.Core.Math;
+using Synthwave.Core.Classes.Core.Models;
+using Synthwave.Core.Classes.World.Roads;
+using Synthwave.Core.Classes.World.Terrain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace Synthwave.Core.Classes.World;
 public class InfiniteWorldManager(GraphicsDevice device, TerrainSystem terrain)
 {
     #region Properties
-    private readonly Dictionary<Point, WorldChunk> _chunks = new();
-    private readonly TerrainChunkBuilder _terrainBuilder = new TerrainChunkBuilder(device, terrain);
-    private readonly RoadMeshBuilder _roadBuilder = new RoadMeshBuilder(device, terrain);
+    private readonly Dictionary<Point, WorldChunk> _chunks = [];
+    private readonly TerrainChunkBuilder _terrainBuilder = new(device, terrain);
+    private readonly RoadMeshBuilder _roadBuilder = new(device, terrain);
 
     public int ChunkSize = 1000;
     public int ViewDistance = 3;     // chunks to load in each direction

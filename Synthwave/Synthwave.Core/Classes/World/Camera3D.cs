@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Synthwave.Core.Classes.Core;
+using Synthwave.Core.Classes.Core.Enums;
 using System;
 using System.Diagnostics;
 

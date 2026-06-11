@@ -1,20 +1,15 @@
 ﻿using Microsoft.Xna.Framework;
-using Synthwave.Core.Classes.Math;
+using Synthwave.Core.Classes.Core;
+using Synthwave.Core.Classes.Core.Math;
 using System;
 using System.Collections.Generic;
 
 namespace Synthwave.Core.Classes.World;
 
-internal static class RandomExt
-{
-    public static float NextSingle(this Random r, float min, float max)
-        => min + (float)r.NextDouble() * (max - min);
-}
-
 public class RoadSplineSystem
 {
     #region Properties
-    public List<Spline> Roads = new();
+    public List<Spline> Roads = [];
 
     // Grid parameters
     private const int GridCount = 8;     // avenues in each axis

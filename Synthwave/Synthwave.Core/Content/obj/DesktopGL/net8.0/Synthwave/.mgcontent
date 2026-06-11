@@ -8,11 +8,15 @@
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Maps/WorldMap.png</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/Cars/cybertruck.fbx</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/Cars/R8.fbx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/NeonMask.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/PostProcessingShader.fx</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />
     <File xsi:nil="true" />
-    <File>Models/Cars/cybertruck</File>
-    <File>Models/Cars/R8</File>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

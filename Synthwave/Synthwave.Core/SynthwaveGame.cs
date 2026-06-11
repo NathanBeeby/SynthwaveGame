@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Synthwave.Core.Classes;
 using Synthwave.Core.Classes.Core;
-using Synthwave.Core.Classes.HUD;
+using Synthwave.Core.Classes.Graphics.HUD;
 using Synthwave.Core.Classes.World;
 using Synthwave.Core.Localization;
 using System;
@@ -64,7 +64,7 @@ public class SynthwaveGame : Game
         _input = new InputHandler();
         _camera = new Camera3D(GraphicsDevice);
         _world = new SynthwaveWorld();
-        _world.Initialize(GraphicsDevice, _camera);
+        _world.Initialize(Content, GraphicsDevice, _camera);
         _spriteBatch = new SpriteBatch(GraphicsDevice);
         _hud = new HUD();
 
@@ -103,7 +103,7 @@ public class SynthwaveGame : Game
         GraphicsDevice.BlendState = BlendState.Opaque;
         GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
-        _world.Draw(GraphicsDevice, _camera);
+        _world.Draw(GraphicsDevice, _camera, gameTime);
         _hud.Draw(_spriteBatch,_camera.Vehicle);
 
         base.Draw(gameTime);
@@ -115,14 +115,12 @@ public class SynthwaveGame : Game
 Issues to fix:
 
 Terrain too sharp — smoother noise, AND terrain must be flat along the road corridor (flatten within road half-width + margin)
-Car physics — need CurrentSpeed, Acceleration, gears (1-6), top speed, W=accelerate, S=brake/reverse, A/D = steer (yaw change proportional to speed), not strafe
-Q/E = turn view, R/V = camera up/down, Space = fly up, Shift = fly down in debug
 Roads overlap — need road deduplication at intersections (blend/merge geometry). The real fix is: roads are solid-filled yellow, raised above terrain flatten zone, and where two roads cross the builder skips re-adding geometry already covered
 Roads wider × 2, yellow colour, curbs either side (raised edge strips), no curbs on roundabouts
 Ground grid: glowing pulsing lines — drive the colour via a PulseTime uniform animated each frame, encode terrain biome into line colour (pink=default, green=grassland, yellow=sand, blue=water), rebuild the grid each frame since line colours depend on world position + biome
  
--	Add First Person & Third Person View
--	Add NOS and Drifting ability + Accelerations.
+
+- Convert the Fog System in BloomRenderer into an entire weather system, e.g. Rain, Frost, Snow, Arrid Heat, etc. and have it impact the car movement and control.
 
 -	Add Weather Controls
 -	Add in different Biomes 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Synthwave.Core.Classes.Math;
+using Synthwave.Core.Classes.Core.Math;
+using Synthwave.Core.Classes.Core.Models;
 using Synthwave.Core.Classes.World;
 using System.Collections.Generic;
 
@@ -47,7 +48,11 @@ public class BloomRenderer
     {
         Flush();
     }
-
+    public void DrawGlowLine(Vector3 a, Vector3 b, Vector3 color)
+    {
+        _lineBuffer.Add(new VertexPositionColor(a, new Color(color * 2f)));
+        _lineBuffer.Add(new VertexPositionColor(b, new Color(color * 2f)));
+    }
     public void DrawLine(Vector3 a, Vector3 b, Color color)
     {
         _lineBuffer.Add(new VertexPositionColor(a, color));
@@ -72,7 +77,7 @@ public class BloomRenderer
         }
     }
 
-    public void DrawCityBlock(CityBlockGenerator.Block b)
+    public void DrawCityBlock(Block b)
     {
         Vector3 basePos = b.Position;
         for (int i = 0; i < b.Density; i++)
@@ -83,7 +88,7 @@ public class BloomRenderer
         }
     }
 
-    public void DrawCar(TrafficSystem.Car c)
+    public void DrawCar(Car c)
     {
         float dist = Vector3.Distance(CameraPosition, c.Position);
         Vector3 color = new Vector3(0.2f, 1f, 0.9f) + AmbientLight;
@@ -114,11 +119,7 @@ public class BloomRenderer
         foreach (var pass in _effect.CurrentTechnique.Passes)
         {
             pass.Apply();
-            _device.DrawUserPrimitives(
-                PrimitiveType.LineList,
-                _lineBuffer.ToArray(),
-                0,
-                count / 2);
+            _device.DrawUserPrimitives(PrimitiveType.LineList,_lineBuffer.ToArray(),0,count / 2);
         }
 
         _lineBuffer.Clear();

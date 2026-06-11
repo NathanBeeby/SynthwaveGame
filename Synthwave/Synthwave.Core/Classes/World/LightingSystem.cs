@@ -1,14 +1,16 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Synthwave.Core.Classes.Renderer;
-using Synthwave.Core.Classes.Sky;
+using Synthwave.Core.Classes.World.Sky;
 
 namespace Synthwave.Core.Classes.World;
 
 public class LightingSystem
 {
+    #region Properties
     public Vector3 AmbientColor;
+    #endregion
 
+    #region Methods
     public void Update(SkySystem sky)
     {
         float sun = sky.GetSunIntensity();
@@ -22,8 +24,6 @@ public class LightingSystem
             synthBase * 0.12f;
     }
 
-    public void Apply(BloomRenderer renderer)
-    {
-        renderer.AmbientLight = AmbientColor;
-    }
+    public void Apply(BloomRenderer renderer) => renderer.AmbientLight = AmbientColor;
+    #endregion
 }
