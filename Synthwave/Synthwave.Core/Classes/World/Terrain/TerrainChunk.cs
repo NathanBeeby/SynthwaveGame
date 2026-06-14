@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Synthwave.Core.Classes.Core.Enums;
-using Synthwave.Core.Classes.World;
 using System.Collections.Generic;
 
 namespace Synthwave.Core.Classes.World.Terrain;

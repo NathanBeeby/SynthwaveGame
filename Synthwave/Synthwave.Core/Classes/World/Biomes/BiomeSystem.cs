@@ -36,12 +36,7 @@ public static class BiomeSystem
         Vector3 sandC = new(1f, 0.9f, 0.6f);
         Vector3 defC = new(1f, 0.2f, 0.8f);
 
-        Vector3 col =
-            seaC * sea +
-            grassC * grass +
-            sandC * sand +
-            defC * (1f - (sea + grass + sand));
-
+        Vector3 col =seaC * sea +grassC * grass +sandC * sand +defC * (1f - (sea + grass + sand));
         return new Color(col);
     }
     #endregion

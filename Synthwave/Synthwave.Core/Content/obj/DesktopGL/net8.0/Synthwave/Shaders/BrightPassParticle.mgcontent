@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <SourceFile>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/BrightPassParticle.fx</SourceFile>
+  <SourceTime>2026-06-12T23:35:37.421846+01:00</SourceTime>
+  <DestFile>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/bin/DesktopGL/Synthwave/Shaders/BrightPassParticle.xnb</DestFile>
+  <DestTime>2026-06-13T00:07:34.7674205+01:00</DestTime>
+  <Importer>EffectImporter</Importer>
+  <ImporterTime>2025-04-05T11:10:54+01:00</ImporterTime>
+  <Processor>EffectProcessor</Processor>
+  <ProcessorTime>2025-04-05T11:10:54+01:00</ProcessorTime>
+  <Parameters>
+    <Key>DebugMode</Key>
+    <Value>Auto</Value>
+  </Parameters>
+  <Dependencies />
+  <BuildAsset />
+  <BuildOutput />
+</PipelineBuildEvent>

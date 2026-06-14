@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Synthwave.Core.Classes.Core.Models;
+using Synthwave.Core.Classes.World.Weather;
 using System;
 using System.Collections.Generic;
 
@@ -36,18 +37,23 @@ public class TrafficSystem
         }
     }
 
-    public void Update(float dt)
+    public void Update(float dt, WeatherSystem weather, TerrainSystem terrain)
     {
         foreach (var c in Cars)
         {
             c.T = (c.T + dt * c.Speed) % 1f;
-
             Vector3 p = c.Road.Evaluate(c.T);
 
-            // Snap to terrain if available
-            float groundY = _terrain != null
-                ? _terrain.GetHeight(p.X, p.Z)
-                : p.Y;
+            float groundY = terrain != null ? terrain.GetHeight(p.X, p.Z) : p.Y;
+            float puddle = terrain != null ? terrain.GetWaterLevel(p.X, p.Z) : 0f;
+
+            float hydro = puddle * weather.HydroplaningFactor;
+
+            float friction = weather.FrictionMultiplier * (1f - hydro);
+
+            // Reduce car speed if hydroplaning
+            float speedFactor = MathHelper.Clamp(friction, 0.5f, 1f);
+            c.Speed *= speedFactor;
 
             c.Position = new Vector3(p.X, groundY + 1.2f, p.Z);
         }

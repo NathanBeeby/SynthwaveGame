@@ -10,13 +10,13 @@ public class RoadSplineSystem
 {
     #region Properties
     public List<Spline> Roads = [];
+    public List<Spline> Splines => Roads;
 
     // Grid parameters
-    private const int GridCount = 8;     // avenues in each axis
-    private const float GridSpacing = 600f;  // distance between avenues (world units)
+    private const int GridCount = 8;      // avenues in each axis
+    private const float GridSpacing = 600f;   // distance between avenues (world units)
     private const float GridOffset = -(GridCount / 2f) * GridSpacing; // centre on origin
 
-    // Stores intersection world positions for connectors / roundabouts
     private Vector3[,] _grid;
     #endregion
 
@@ -34,7 +34,7 @@ public class RoadSplineSystem
             for (int col = 0; col <= GridCount; col++)
             {
                 float x = GridOffset + col * GridSpacing
-                          + rng.NextSingle(-40f, 40f);  // slight organic variation
+                          + rng.NextSingle(-40f, 40f);
                 float z = GridOffset + row * GridSpacing
                           + rng.NextSingle(-40f, 40f);
                 _grid[row, col] = new Vector3(x, 0f, z);
@@ -64,12 +64,10 @@ public class RoadSplineSystem
         {
             for (int col = 0; col < GridCount; col++)
             {
-                if ((row + col) % 3 != 0) continue;   // sparse diagonals
+                if ((row + col) % 3 != 0) continue;
 
-                // NW → SE
                 var diag = new Spline();
                 diag.Points.Add(_grid[row, col]);
-                // Mid-control point: midpoint + small perpendicular bulge
                 Vector3 mid = (_grid[row, col] + _grid[row + 1, col + 1]) * 0.5f
                               + new Vector3(rng.NextSingle(-60f, 60f), 0f,
                                             rng.NextSingle(-60f, 60f));
@@ -88,13 +86,11 @@ public class RoadSplineSystem
         }
     }
 
-
-
     private void AddRoundabout(Vector3 centre, float radius)
     {
         var circle = new Spline();
         const int Segs = 16;
-        for (int i = 0; i <= Segs; i++)   // +1 so the spline closes
+        for (int i = 0; i <= Segs; i++)
         {
             float a = MathHelper.TwoPi * i / Segs;
             circle.Points.Add(centre + new Vector3(
@@ -104,41 +100,32 @@ public class RoadSplineSystem
         }
         Roads.Add(circle);
     }
-    
-
 
     private static Spline GenerateMainRoad(Random r)
     {
         Spline s = new();
-
         Vector3 start = new(r.Next(-2000, 2000), 0, r.Next(-2000, 2000));
         Vector3 end = new(r.Next(-2000, 2000), 0, r.Next(-2000, 2000));
-
         for (int i = 0; i < 6; i++)
         {
             s.Points.Add(Vector3.Lerp(start, end, i / 5f) +
                          new Vector3(r.Next(-200, 200), 0, r.Next(-200, 200)));
         }
-
         return s;
     }
 
     private void GenerateRoundabouts(Random r)
     {
-        // simplified: circular splines
         for (int i = 0; i < 6; i++)
         {
             Spline circle = new();
-
             Vector3 center = new(r.Next(-1000, 1000), 0, r.Next(-1000, 1000));
             float radius = r.Next(80, 200);
-
             for (int j = 0; j < 12; j++)
             {
                 float a = j / 12f * MathF.Tau;
                 circle.Points.Add(center + new Vector3(MathF.Cos(a), 0, MathF.Sin(a)) * radius);
             }
-
             Roads.Add(circle);
         }
     }

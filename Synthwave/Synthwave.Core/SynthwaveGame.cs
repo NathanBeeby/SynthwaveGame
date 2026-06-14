@@ -1,10 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using Synthwave.Core.Classes;
-using Synthwave.Core.Classes.Core;
+using Synthwave.Core.Classes.Core.Input;
 using Synthwave.Core.Classes.Graphics.HUD;
+using Synthwave.Core.Classes.Menus.Core;
+using Synthwave.Core.Classes.Menus.Screens;
+using Synthwave.Core.Classes.Particles;
 using Synthwave.Core.Classes.World;
+using Synthwave.Core.Classes.World.Weather;
 using Synthwave.Core.Localization;
 using System;
 using System.Collections.Generic;
@@ -15,15 +18,17 @@ namespace Synthwave.Core;
 public class SynthwaveGame : Game
 {
     #region Properties
-    private readonly GraphicsDeviceManager _graphics;
-    private Camera3D _camera;
-    private InputHandler _input;
-    private SynthwaveWorld _world;
-    private HUD _hud;
-    private SpriteBatch _spriteBatch;
+    private GameServiceContainer _services;
 
+    private ScreenManager _screenManager;
+
+    private readonly GraphicsDeviceManager _graphics;
     public readonly static bool IsMobile = OperatingSystem.IsAndroid() || OperatingSystem.IsIOS();
     public readonly static bool IsDesktop = OperatingSystem.IsMacOS() || OperatingSystem.IsLinux() || OperatingSystem.IsWindows();
+
+    private Effect _brightEffect;
+    private Effect _blurEffect;
+    private Effect _combinedEffect;
     #endregion
 
     #region Constructor
@@ -31,10 +36,9 @@ public class SynthwaveGame : Game
     {
         _graphics = new GraphicsDeviceManager(this);
         Services.AddService(typeof(GraphicsDeviceManager), _graphics);
-
+        _services = Services;
         Content.RootDirectory = "Content";
         Window.Title = "SynthWave";
-
         _graphics.SupportedOrientations = DisplayOrientation.LandscapeLeft | DisplayOrientation.LandscapeRight;
     }
     #endregion
@@ -60,53 +64,117 @@ public class SynthwaveGame : Game
     protected override void LoadContent()
     {
         base.LoadContent();
+        _services.AddService(GraphicsDevice);
+        // Core MonoGame services
+        _services.AddService(Content);
 
-        _input = new InputHandler();
-        _camera = new Camera3D(GraphicsDevice);
-        _world = new SynthwaveWorld();
-        _world.Initialize(Content, GraphicsDevice, _camera);
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-        _hud = new HUD();
+        var spriteBatch = new SpriteBatch(GraphicsDevice);
+        _services.AddService(spriteBatch);
 
-        _hud.Load(Content);
-        // worldLoader ??= new WorldLoader(Content, GraphicsDevice);
-      //  modelLoader ??= new ModelLoader(Content);
+        // Your systems
+        var camera = new Camera3D(GraphicsDevice);
+        var world = new SynthwaveWorld();
+        var hud = new HUD();
+
+        world.Initialize(Content, GraphicsDevice, camera);
+        hud.Load(Content);
+
+        var debugFont = Content.Load<SpriteFont>("Fonts/Hud");
+        _services.AddService(new DebugOverlay(debugFont));
+
+        _brightEffect = Content.Load<Effect>("Shaders/BrightPassParticle");
+        _blurEffect = Content.Load<Effect>("Shaders/BlurParticle");
+        _combinedEffect = Content.Load<Effect>("Shaders/CombinedParticle");
+
+        var BloomMgr = new BloomManager(GraphicsDevice, _brightEffect, _blurEffect, _combinedEffect);
+        _services.AddService(BloomMgr);
+
+
+        var particleManager = new ParticleManager();
+        _services.AddService(particleManager);
+
+        _services.AddService(new InputHandler());
+        _services.AddService(new WeatherSystem());
+        _services.AddService(camera);
+        _services.AddService(world);
+        _services.AddService(hud);
+
+        // Screen system
+        _screenManager = new ScreenManager(_services);
+        _screenManager.ChangeScreen(new GameplayScreen());
+        _screenManager.LoadContent();
     }
 
     protected override void UnloadContent()
     {
         base.UnloadContent();
-
+        _screenManager?.UnloadContent();
         // worldLoader.Update(camera.Position);
     }
     #endregion
 
+    protected override void OnActivated(object sender, EventArgs args)
+    {
+        base.OnActivated(sender, args);
+        _screenManager?.OnActivated(sender, args);
+        // redraw everything on activated
+
+    }
+
+    protected override void OnDeactivated(object sender, EventArgs args)
+    {
+        base.OnDeactivated(sender, args);
+        _screenManager?.OnDeactivated(sender, args);
+    // Stop everything if deactivated
+    }
+
+    protected override void OnExiting(object sender, ExitingEventArgs args)
+    {
+        base.OnExiting(sender, args);
+        _screenManager?.OnExiting(sender, args);
+        // implement Exiting actions (e.g. Save Game)
+    }
+
+    protected override void BeginRun()
+    {
+        base.BeginRun();
+        _screenManager?.BeginRun();
+    }
+
+    protected override bool BeginDraw()
+    {
+        _screenManager?.BeginDraw();
+        return base.BeginDraw();
+    }
+
     protected override void Update(GameTime gameTime)
     {
-        _input.Update();
-
-        if (_input.IsKeyDown(Keys.Escape)) Exit();
-
-        _camera.Update(gameTime, _input);
-
-        // Note: world.Update now also takes InputHandler for debug controls
-        _world.Update(gameTime, _camera, _input);
-
         base.Update(gameTime);
+        _screenManager?.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(new Color(10, 0, 30));
-
-        GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-        GraphicsDevice.BlendState = BlendState.Opaque;
-        GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-
-        _world.Draw(GraphicsDevice, _camera, gameTime);
-        _hud.Draw(_spriteBatch,_camera.Vehicle);
-
         base.Draw(gameTime);
+        _screenManager?.Draw(gameTime);
+    }
+
+    protected override void EndRun()
+    {
+        base.EndRun();
+        _screenManager?.EndRun();
+    }
+
+    protected override void EndDraw()
+    {
+        base.EndDraw();
+        _screenManager?.EndDraw();
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        base.Dispose(disposing);
+        _screenManager?.Dispose(disposing);
     }
     #endregion
 }
@@ -117,13 +185,8 @@ Issues to fix:
 Terrain too sharp — smoother noise, AND terrain must be flat along the road corridor (flatten within road half-width + margin)
 Roads overlap — need road deduplication at intersections (blend/merge geometry). The real fix is: roads are solid-filled yellow, raised above terrain flatten zone, and where two roads cross the builder skips re-adding geometry already covered
 Roads wider × 2, yellow colour, curbs either side (raised edge strips), no curbs on roundabouts
-Ground grid: glowing pulsing lines — drive the colour via a PulseTime uniform animated each frame, encode terrain biome into line colour (pink=default, green=grassland, yellow=sand, blue=water), rebuild the grid each frame since line colours depend on world position + biome
- 
 
-- Convert the Fog System in BloomRenderer into an entire weather system, e.g. Rain, Frost, Snow, Arrid Heat, etc. and have it impact the car movement and control.
 
--	Add Weather Controls
--	Add in different Biomes 
 -	Collectable Coins
 -	Add in Shader & Include Rubber on floor in dry, or rain on floor / Puddles when raining.
 -   Add Shader for reflective roads, road center line and side reservations in neon yellow and neon light blue
@@ -138,11 +201,92 @@ Mission Types:
 -	Collect Coins
 -	Purchase new vehicles or parts (Go to garage)
 -	Vibrate on hit on phone
--	Add Weather
--	When not raining, add rubber tyre on floor
 -	Points for Nitros 
 -	Ability to drift
 -	Add secret level for secret mission success
 -	Thunder & Lightning / Weather switches
 
+
+TODO LATER:
+    - Improve Weather System Shaders
+    - Improve ground rendering
+
  */
+
+// Crate Menu System
+// Create HUD system with movable view.
+// Create Power Up system
+// Create Memory Storage System
+// Implement Achievement System & Achievement Notifications
+// Implement Shop System
+
+// Move over MVVM Service based design.
+// Move all of game code and SynthwaveWorld into a Game class.
+/*
+ Potential Additions:
+
+🔥 Transition types
+slide left/right
+zoom blur
+pixel dissolve
+🔥 Input layers
+UI layer
+gameplay layer
+modal dialogs
+🔥 Debug console (Unity-style)
+runtime commands
+teleport player
+spawn objects
+toggle systems
+🔥 Scene graph debugger
+visual entity tree
+live collision debug view 
+
+ 🔥 HDR lighting pipeline (real engine-style)
+🌈 Color grading (LUT system for synthwave look)
+💡 Light volume system (particles actually illuminate world)
+🎬 Camera bloom + motion blur combo
+🧠 Per-material emissive control system
+ */
+
+
+/*
+ 
+ public class Game1 : Game
+{
+    private GraphicsDeviceManager _graphics;
+    private ScreenManager _screenManager;
+
+    protected override void Initialize()
+    {
+        _graphics = new GraphicsDeviceManager(this);
+        Content.RootDirectory = "Content";
+
+        base.Initialize();
+    }
+
+    protected override void LoadContent()
+    {
+        _screenManager = new ScreenManager(GraphicsDevice, Content);
+
+        _screenManager.ChangeScreen(new TitleScreen());
+    }
+
+    protected override void Update(GameTime gameTime)
+    {
+        _screenManager.Update(gameTime);
+        base.Update(gameTime);
+    }
+
+    protected override void Draw(GameTime gameTime)
+    {
+        GraphicsDevice.Clear(Color.Black);
+
+        _screenManager.Draw(gameTime);
+
+        base.Draw(gameTime);
+    }
+}
+ 
+ */
+

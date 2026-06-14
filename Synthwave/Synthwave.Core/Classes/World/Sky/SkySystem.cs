@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Synthwave.Core.Classes.World;
+using Synthwave.Core.Classes.World.Weather;
 using System;
 using System.Diagnostics;
 
@@ -15,8 +16,11 @@ public class SkySystem
     public Vector3 SkyColor;
     public Vector3 HorizonColor;
     public Vector3 NightColor;
+    private Vector3 _weatherTint;
 
     public float DaySpeed = 0.008f; // full cycle ≈ 125 s
+    private float _weatherDarken;
+
 
     private Stars _stars;
     private SynthwaveSun _sun;
@@ -47,13 +51,16 @@ public class SkySystem
         ComputeSkyColors();
     }
 
-    public void Update(float dt)
+    public void Update(float dt, WeatherSystem weather)
     {
         TimeOfDay += dt * DaySpeed;
         if (TimeOfDay > 1f) TimeOfDay -= 1f;
 
         ComputeCelestialBodies();
         ComputeSkyColors();
+
+        _weatherDarken = 1f - weather.Visibility;
+        _weatherTint = weather.AmbientTint.ToVector3();
     }
 
     public void SkipTime(float delta)
@@ -96,6 +103,10 @@ public class SkySystem
             sunUp);
 
         NightColor = night;
+
+        SkyColor = Vector3.Lerp(SkyColor, SkyColor * _weatherTint, _weatherDarken);
+        HorizonColor *= Vector3.Lerp(Vector3.One, _weatherTint, _weatherDarken);
+        NightColor *= Vector3.Lerp(Vector3.One, _weatherTint, _weatherDarken);
     }
 
     public float GetSunIntensity() => MathF.Max(0f, SunDirection.Y);

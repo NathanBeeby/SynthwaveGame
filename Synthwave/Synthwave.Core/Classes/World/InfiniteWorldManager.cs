@@ -12,50 +12,36 @@ namespace Synthwave.Core.Classes.World;
 
 public class InfiniteWorldManager(GraphicsDevice device, TerrainSystem terrain)
 {
-    #region Properties
     private readonly Dictionary<Point, WorldChunk> _chunks = [];
     private readonly TerrainChunkBuilder _terrainBuilder = new(device, terrain);
-    private readonly RoadMeshBuilder _roadBuilder = new(device, terrain);
-
+    private readonly RoadMeshBuilder _roadBuilder = new(device, terrain); // ← only this one
     public int ChunkSize = 1000;
-    public int ViewDistance = 3;     // chunks to load in each direction
-    public int EvictDistance = 5;    // chunks beyond this are unloaded
-    #endregion
+    public int ViewDistance = 3;
+    public int EvictDistance = 5;
 
-    #region Methods
     public void Update(Vector3 cameraPos, RoadSplineSystem roads)
     {
         int cx = ChunkIndex(cameraPos.X);
         int cz = ChunkIndex(cameraPos.Z);
 
-        // ── Build missing chunks in view range ────────────────────────────
         for (int x = cx - ViewDistance; x <= cx + ViewDistance; x++)
-        {
             for (int z = cz - ViewDistance; z <= cz + ViewDistance; z++)
             {
                 var chunk = GetOrCreate(x, z);
                 if (chunk.IsBuilt) continue;
-
                 _terrainBuilder.Build(chunk, ChunkSize);
-
-                // All roads whose spline spans over this chunk's world rect
                 var localRoads = roads.Roads
                     .Where(r => RoadTouchesChunk(r, x, z))
                     .ToList();
-
                 _roadBuilder.Build(chunk, localRoads);
-                // IsBuilt already set to true by TerrainChunkBuilder.Build
             }
-        }
 
-        // ── Evict distant chunks ──────────────────────────────────────────
         var toEvict = _chunks.Values
             .Where(c => ChebyshevDist(c.Coord, cx, cz) > EvictDistance)
             .ToList();
-
         foreach (var c in toEvict)
         {
-            c.Dispose();    // frees GPU buffers, sets IsBuilt=false
+            c.Dispose();
             _chunks.Remove(c.Coord);
         }
     }
@@ -64,7 +50,6 @@ public class InfiniteWorldManager(GraphicsDevice device, TerrainSystem terrain)
     {
         int cx = ChunkIndex(cameraPos.X);
         int cz = ChunkIndex(cameraPos.Z);
-
         var result = new List<WorldChunk>();
         for (int x = cx - ViewDistance; x <= cx + ViewDistance; x++)
             for (int z = cz - ViewDistance; z <= cz + ViewDistance; z++)
@@ -72,28 +57,19 @@ public class InfiniteWorldManager(GraphicsDevice device, TerrainSystem terrain)
         return result;
     }
 
-
-    // ── Helpers ──────────────────────────────────────────────────────────
-
-
-    private int ChunkIndex(float worldCoord)
-        => (int)MathF.Floor(worldCoord / ChunkSize);
+    private int ChunkIndex(float worldCoord) => (int)MathF.Floor(worldCoord / ChunkSize);
 
     private static int ChebyshevDist(Point p, int cx, int cz)
-        => System.Math.Max(System.Math.Abs(p.X - cx), System.Math.Abs(p.Y - cz));
+        => Math.Max(Math.Abs(p.X - cx), Math.Abs(p.Y - cz));
 
     private bool RoadTouchesChunk(Spline road, int cx, int cz)
     {
-        float minX = cx * ChunkSize;
-        float maxX = minX + ChunkSize;
-        float minZ = cz * ChunkSize;
-        float maxZ = minZ + ChunkSize;
-
+        float minX = cx * ChunkSize, maxX = minX + ChunkSize;
+        float minZ = cz * ChunkSize, maxZ = minZ + ChunkSize;
         for (int i = 0; i <= 20; i++)
         {
             Vector3 p = road.Evaluate(i / 20f);
-            if (p.X >= minX && p.X <= maxX && p.Z >= minZ && p.Z <= maxZ)
-                return true;
+            if (p.X >= minX && p.X <= maxX && p.Z >= minZ && p.Z <= maxZ) return true;
         }
         return false;
     }
@@ -108,5 +84,4 @@ public class InfiniteWorldManager(GraphicsDevice device, TerrainSystem terrain)
         }
         return chunk;
     }
-    #endregion
 }

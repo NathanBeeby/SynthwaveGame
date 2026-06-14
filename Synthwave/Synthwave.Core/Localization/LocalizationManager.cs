@@ -30,7 +30,7 @@ namespace Synthwave.Core.Localization
         public static List<CultureInfo> GetSupportedCultures()
         {
             // Create a list to hold supported cultures
-            List<CultureInfo> supportedCultures = new List<CultureInfo>();
+            List<CultureInfo> supportedCultures = [];
 
             // Get the current assembly
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -79,7 +79,7 @@ namespace Synthwave.Core.Localization
                 throw new ArgumentNullException(nameof(cultureCode), "A culture code must be provided.");
 
             // Create a CultureInfo object from the culture code
-            CultureInfo culture = new CultureInfo(cultureCode);
+            CultureInfo culture = new(cultureCode);
 
             // Set the current culture and UI culture for the current thread
             Thread.CurrentThread.CurrentCulture = culture;

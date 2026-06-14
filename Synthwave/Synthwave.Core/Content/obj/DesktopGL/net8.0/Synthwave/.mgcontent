@@ -6,12 +6,50 @@
   <SourceFiles>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Fonts/Hud.spritefont</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Maps/WorldMap.png</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/Building.obj</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/Cars/cybertruck.fbx</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/Cars/R8.fbx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/PalmTree.obj</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/StreetLight.obj</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/BasicParticleShader.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/BlurParticle.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/BrightPassParticle.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/CombinedParticle.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/EmissiveShader.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/FogShader.fx</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/NeonMask.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/NeonRoad.fx</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/PostProcessingShader.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/RainPixelShader.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/RainSky.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/Reflection.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/ReflectiveRoad.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/Snow.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/SpeedEffect.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/StandardShader.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/TyreMark.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/Weather.fx</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

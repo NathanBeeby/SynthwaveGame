@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using Synthwave.Core.Classes.World;
+using Synthwave.Core.Classes.Vehicle;
+using Synthwave.Core.Classes.World.Weather;
 
 namespace Synthwave.Core.Classes.Graphics.HUD;
 
@@ -17,9 +18,9 @@ public class HUD
         vHUD.Load(content);
     }
 
-    public void Draw(SpriteBatch spriteBatch, VehicleController vehicle)
+    public void Draw(SpriteBatch spriteBatch, VehicleController vehicle, WeatherSystem weather)
     {
-        vHUD.Draw(spriteBatch, vehicle);
+        vHUD.Draw(spriteBatch, vehicle, weather);
     }
     #endregion
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Synthwave.Core.Classes.Core.Models;
+using Synthwave.Core.Classes.World.Weather;
 using System;
 using System.Collections.Generic;
 
@@ -19,14 +20,11 @@ public class CityBlockGenerator
 
         foreach (var road in roads.Roads)
         {
-            // Sample blocks along each road at intervals
             for (float t = 0f; t < 1f; t += 0.08f)
             {
                 if (rng.NextDouble() > 0.55) continue;
-
                 Vector3 p = road.Evaluate(t);
                 p.Y = terrain.GetHeight(p.X, p.Z);
-
                 Blocks.Add(new Block
                 {
                     Position = p,
@@ -35,6 +33,13 @@ public class CityBlockGenerator
                 });
             }
         }
+    }
+
+    public void Update(WeatherSystem weather)
+    {
+        // Tint is available for future use; no per-frame allocation needed
+        Color tint = new(weather.AmbientTint.ToVector3() * weather.Visibility);
+        _ = tint; // suppress unused warning until tint is wired into Draw
     }
     #endregion
 }

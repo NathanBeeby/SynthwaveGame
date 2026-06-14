@@ -8,6 +8,9 @@
     <ApplicationIcon>../Synthwave.Core/Content/Icon.ico</ApplicationIcon>
     <AssemblyName>Synthwave</AssemblyName>
   </PropertyGroup>
+  <PropertyGroup>
+  <PublishTrimmed>false</PublishTrimmed>
+</PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <CreatePackage>false</CreatePackage>
     <DefineConstants>$(DefineConstants);DEBUG</DefineConstants>

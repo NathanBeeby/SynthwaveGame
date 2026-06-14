@@ -1,8 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Synthwave.Core.Classes.Core;
 using Synthwave.Core.Classes.Core.Enums;
+using Synthwave.Core.Classes.Core.Input;
+using Synthwave.Core.Classes.Vehicle;
+using Synthwave.Core.Classes.World.Weather;
 using System;
 using System.Diagnostics;
 
@@ -21,6 +23,8 @@ public class Camera3D
     public float NearPlane = 0.5f;
     public float FarPlane = 6000f;
     public float FlySpeed = 300f;
+    public float ShakeAmount;
+    public float FovKick;
 
     public Vector3 Position;
 
@@ -33,10 +37,9 @@ public class Camera3D
     #endregion
 
     #region Constructor
-
     public Camera3D(GraphicsDevice device)
     {
-        Vehicle = new VehicleController();
+        Vehicle = new VehicleController(this);
         Position = new Vector3(0, 10, 0);
         Yaw = 0;
         Pitch = -0.1f;
@@ -45,34 +48,30 @@ public class Camera3D
 
         UpdateView();
     }
-
     #endregion
 
     #region Update
-
-    public void Update(GameTime gameTime, InputHandler input)
+    public void Update(GameTime gameTime, InputHandler input, WeatherSystem weather)
     {
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
 #if DEBUG
         if (Debugger.IsAttached && input.WasJustPressed(Keys.F)) FlyMode = !FlyMode;
+        if (Debugger.IsAttached && input.WasJustPressed(Keys.G)) weather.CycleWeather();
 #endif
 
         if (FlyMode)
         {
             UpdateFlyMode(dt, input);
             UpdateView();
-
             return;
         }
 
-        UpdateVehiclePosition(gameTime, input);
+        UpdateVehiclePosition(gameTime, input, weather);
         UpdateMouseLook();
         UpdateHeadLook(input, dt);
-
         UpdateView();
     }
-
     #endregion
 
     private void UpdateHeadLook(InputHandler input, float dt)
@@ -83,6 +82,7 @@ public class Camera3D
         HeadYaw = MathHelper.Clamp(HeadYaw, MathHelper.ToRadians(-30), MathHelper.ToRadians(30));
         Pitch = MathHelper.Clamp(Pitch, -1.3f, 0.4f);
     }
+
     private void UpdateMouseLook()
     {
         MouseState mouse = Mouse.GetState();
@@ -94,12 +94,14 @@ public class Camera3D
         HeadYaw -= dx * MouseSensitivity;
         Pitch -= dy * MouseSensitivity;
     }
-    private void UpdateVehiclePosition(GameTime gameTime, InputHandler input)
+
+    private void UpdateVehiclePosition(GameTime gameTime, InputHandler input, WeatherSystem weather)
     {
-        Vehicle.Update(gameTime, input);
+        Vehicle.Update(gameTime, input, weather);
         Position = Vehicle.Position;
         Yaw = Vehicle.Yaw;
     }
+
     #region Fly Mode
     private void UpdateFlyMode(float dt, InputHandler input)
     {
@@ -129,14 +131,12 @@ public class Camera3D
     #endregion
 
     #region Terrain
-
     public void SnapToTerrain(float terrainHeight)
     {
         if (FlyMode) return;
         Vehicle.Position.Y = terrainHeight;
         Position = Vehicle.Position;
     }
-
     #endregion
 
     #region View
@@ -145,38 +145,40 @@ public class Camera3D
         Matrix rotation = Matrix.CreateRotationY(Yaw) * Matrix.CreateRotationX(Pitch);
         Vector3 lookFly = Vector3.Transform(Vector3.Forward, rotation);
 
-        View = Matrix.CreateLookAt(Position, Position + lookFly, Vector3.Up);
+        // Apply camera shake
+        Vector3 shakeOffset = new((float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount,(float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount,0);
+        View = Matrix.CreateLookAt(Position + shakeOffset, Position + lookFly + shakeOffset, Vector3.Up);
     }
+
 
     private void UpdatePersonView()
     {
         float finalYaw = Yaw + HeadYaw;
         Matrix rotation = Matrix.CreateRotationY(finalYaw) * Matrix.CreateRotationX(Pitch);
         Vector3 look = Vector3.Transform(Vector3.Forward, rotation);
+        Vector3 shakeOffset = new((float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount,(float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount,0);
 
         if (Vehicle.ViewMode == CameraMode.FirstPerson)
         {
-            Vector3 eye = Position + Vector3.Up * EyeHeight;
+            Vector3 eye = Position + Vector3.Up * EyeHeight + shakeOffset;
             View = Matrix.CreateLookAt(eye, eye + look, Vector3.Up);
         }
         else
         {
             Vector3 back = Vector3.Normalize(new Vector3(-look.X, 0, -look.Z));
-            Vector3 cameraPos = Position + Vector3.Up * 5f + back * 12f;
-            View = Matrix.CreateLookAt(cameraPos, Position + Vector3.Up * 2f, Vector3.Up);
+            Vector3 cameraPos = Position + Vector3.Up * 5f + back * 12f + shakeOffset;
+            View = Matrix.CreateLookAt(cameraPos, Position + Vector3.Up * 2f + shakeOffset, Vector3.Up);
         }
     }
 
     private void UpdateView()
     {
-        if (FlyMode)
-        {
-            UpdateFlyView();
-            return;
-        }
-        UpdatePersonView();
-    }
+        if (FlyMode) UpdateFlyView();    
+        else UpdatePersonView();
 
+        // Optional FOV kick for NOS
+        Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(70 + FovKick),Projection.M11 / Projection.M22,NearPlane,FarPlane);
+    }
     #endregion
 }
 
@@ -197,4 +199,5 @@ E	        Look Right
 F	        Debug Fly
 R	        Fly Up
 V	        Fly Down
+G           Cycle Weather
  */

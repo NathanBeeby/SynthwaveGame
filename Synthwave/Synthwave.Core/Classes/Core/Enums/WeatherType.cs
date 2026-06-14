@@ -7,5 +7,6 @@ public enum WeatherType
     HeavyRain,
     Sleet,
     Snow,
-    ArridHeat
+    ArridHeat,
+    Fog
 }
