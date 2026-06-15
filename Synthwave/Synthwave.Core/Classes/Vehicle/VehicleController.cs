@@ -78,6 +78,7 @@ public class VehicleController(Camera3D camera = null)
         UpdateHydroplaneLateralEffect(hydro);
         UpdateYawSync();
         UpdateCameraFeedback(dt);
+        SyncDisplayState();
     }
 
     private void UpdateTerrainAndWeatherEffects(float hydro)
@@ -92,7 +93,7 @@ public class VehicleController(Camera3D camera = null)
     {
         Physics.ApplyForces((Fuel.Fuel != 0) ? engineForce : 0, brakeForce, steerInput, dt);
     }
-    
+
     private void UpdateHydroplaneLateralEffect(float hydro)
     {
         if (hydro > 0.35f && Physics.Velocity.Length() > 15f)
@@ -105,7 +106,13 @@ public class VehicleController(Camera3D camera = null)
     private void UpdateYawSync()
     {
         Yaw = Physics.Yaw;
-        Position = Physics.Position;
+
+        // Only take horizontal movement (X/Z) from the physics sim. Height
+        // (Y) is owned by Camera3D.SnapToTerrain — copying Physics.Position.Y
+        // here would stomp the terrain-snapped height every frame and force
+        // the car back onto a flat plane.
+        Position.X = Physics.Position.X;
+        Position.Z = Physics.Position.Z;
     }
 
     private void UpdateCameraFeedback(float dt)
@@ -116,6 +123,16 @@ public class VehicleController(Camera3D camera = null)
             _camera.ShakeAmount = nosShake + _weather.CameraShake;
             _camera.FovKick = MathHelper.Lerp(_camera.FovKick, NOS.Active ? 12f : 0f, dt * 5f);
         }
+    }
+
+    private void SyncDisplayState()
+    {
+        // Keep the HUD-facing State in sync with the live simulation values.
+        // Previously these were never written, so State.CurrentSpeed stayed
+        // at 0 (HUD speed frozen, automatic gear shifts never trigger) and
+        // State.EngineRPM stayed at its default 800 (HUD RPM frozen).
+        State.CurrentSpeed = Physics.Velocity.Length() * 3.6f; // m/s -> km/h
+        State.EngineRPM = Engine.RPM;
     }
     #endregion
 

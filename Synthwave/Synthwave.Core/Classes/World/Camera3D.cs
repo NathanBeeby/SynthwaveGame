@@ -31,6 +31,12 @@ public class Camera3D
     public Matrix View { get; private set; }
     public Matrix Projection { get; private set; }
 
+    // Captured ONCE from the device. Do NOT derive this back out of the
+    // Projection matrix (M11/M22 == 1/aspectRatio, not aspectRatio) — doing
+    // that flips the ratio every frame and makes the whole world stretch
+    // and squash violently each frame ("shaking").
+    private readonly float _aspectRatio;
+
     private MouseState _prevMouse;
 
     public VehicleController Vehicle;
@@ -43,7 +49,9 @@ public class Camera3D
         Position = new Vector3(0, 10, 0);
         Yaw = 0;
         Pitch = -0.1f;
-        Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(70), device.Viewport.AspectRatio, NearPlane, FarPlane);
+
+        _aspectRatio = device.Viewport.AspectRatio;
+        Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(70), _aspectRatio, NearPlane, FarPlane);
         _prevMouse = Mouse.GetState();
 
         UpdateView();
@@ -134,8 +142,15 @@ public class Camera3D
     public void SnapToTerrain(float terrainHeight)
     {
         if (FlyMode) return;
+
         Vehicle.Position.Y = terrainHeight;
         Position = Vehicle.Position;
+
+        // UpdateView() already ran this frame using the pre-snap (flat) Y.
+        // Recompute it now so the camera actually RENDERS at the terrain
+        // height — otherwise Position.Y is correct but the View matrix used
+        // for drawing still reflects the flat plane.
+        UpdateView();
     }
     #endregion
 
@@ -146,7 +161,7 @@ public class Camera3D
         Vector3 lookFly = Vector3.Transform(Vector3.Forward, rotation);
 
         // Apply camera shake
-        Vector3 shakeOffset = new((float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount,(float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount,0);
+        Vector3 shakeOffset = new((float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount, (float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount, 0);
         View = Matrix.CreateLookAt(Position + shakeOffset, Position + lookFly + shakeOffset, Vector3.Up);
     }
 
@@ -156,7 +171,7 @@ public class Camera3D
         float finalYaw = Yaw + HeadYaw;
         Matrix rotation = Matrix.CreateRotationY(finalYaw) * Matrix.CreateRotationX(Pitch);
         Vector3 look = Vector3.Transform(Vector3.Forward, rotation);
-        Vector3 shakeOffset = new((float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount,(float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount,0);
+        Vector3 shakeOffset = new((float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount, (float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount, 0);
 
         if (Vehicle.ViewMode == CameraMode.FirstPerson)
         {
@@ -173,11 +188,12 @@ public class Camera3D
 
     private void UpdateView()
     {
-        if (FlyMode) UpdateFlyView();    
+        if (FlyMode) UpdateFlyView();
         else UpdatePersonView();
 
-        // Optional FOV kick for NOS
-        Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(70 + FovKick),Projection.M11 / Projection.M22,NearPlane,FarPlane);
+        // Optional FOV kick for NOS — use the fixed aspect ratio captured at
+        // construction. Never derive it from the previous Projection matrix.
+        Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(70 + FovKick), _aspectRatio, NearPlane, FarPlane);
     }
     #endregion
 }
