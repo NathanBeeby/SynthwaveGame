@@ -30,7 +30,6 @@ public class VehicleController(GameServiceContainer services)
 
     public WeatherSystem _weather;
     private TerrainSystem _terrain;
-    private GameServiceContainer _services = services;
     public Camera3D _camera = services.GetService<Camera3D>();
     #endregion
 
@@ -54,7 +53,7 @@ public class VehicleController(GameServiceContainer services)
         float brake = input.IsKeyDown(Keys.Space) ? 1f : 0f;
         float steer = (input.IsKeyDown(Keys.A) ? 1f : 0f) - (input.IsKeyDown(Keys.D) ? 1f : 0f);
 
-        float steerInput = (input.IsKeyDown(Keys.A) ? 0f : 1f) - (input.IsKeyDown(Keys.D) ? 0f : 1f);
+        float steerInput = (input.IsKeyDown(Keys.A) ? 0f : 0f) - (input.IsKeyDown(Keys.D) ? 1f : 0f);
 
         State.SteeringInput = steerInput;
 

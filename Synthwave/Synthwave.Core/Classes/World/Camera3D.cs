@@ -19,15 +19,19 @@ public class Camera3D
 
     public float Yaw;
     public float Pitch;
-    private float HeadYaw;
+    public float HeadYaw;
     public float EyeHeight = 3f;
     public float MouseSensitivity = 0.003f;
+    public float LookOffsetStrength = 0.08f;   // how far you can lean
+    public float LookOffsetSpeed = 10f;        // smoothing
     public float NearPlane = 0.5f;
     public float FarPlane = 6000f;
     public float FlySpeed = 300f;
     public float ShakeAmount;
     public float FovKick;
 
+    private Vector2 _lookOffset;
+    private Vector2 _targetLookOffset;
     public Vector3 Position;
 
     public Matrix View { get; private set; }
@@ -75,6 +79,7 @@ public class Camera3D
 
         UpdateVehiclePosition(gameTime, input, weather);
         UpdateMouseLook();
+        UpdateLookOffset(dt);
         UpdateHeadLook(input, dt);
         UpdateView();
     }
@@ -97,8 +102,23 @@ public class Camera3D
         int dy = mouse.Y - _prevMouse.Y;
 
         _prevMouse = mouse;
-        HeadYaw -= dx * MouseSensitivity;
+
+        // normal rotation stays (look direction)
+        HeadYaw += dx * MouseSensitivity;
         Pitch -= dy * MouseSensitivity;
+
+        Pitch = MathHelper.Clamp(Pitch, -1.3f, 0.4f);
+
+        // NEW: also drive positional offset
+        _targetLookOffset.X = MathHelper.Clamp(_targetLookOffset.X + dx * 0.0015f, -LookOffsetStrength, LookOffsetStrength);
+        _targetLookOffset.Y = MathHelper.Clamp(_targetLookOffset.Y + dy * 0.0015f, -LookOffsetStrength, LookOffsetStrength);
+    }
+
+    private void UpdateLookOffset(float dt)
+    {
+        float t = 1f - MathF.Exp(-LookOffsetSpeed * dt);
+
+        _lookOffset = Vector2.Lerp(_lookOffset, _targetLookOffset, t);
     }
 
     private void UpdateVehiclePosition(GameTime gameTime, InputHandler input, WeatherSystem weather)
@@ -143,11 +163,6 @@ public class Camera3D
 
         Vehicle.Position.Y = terrainHeight;
         Position = Vehicle.Position;
-
-        // UpdateView() already ran this frame using the pre-snap (flat) Y.
-        // Recompute it now so the camera actually RENDERS at the terrain
-        // height — otherwise Position.Y is correct but the View matrix used
-        // for drawing still reflects the flat plane.
         UpdateView();
     }
     #endregion
@@ -163,24 +178,29 @@ public class Camera3D
         View = Matrix.CreateLookAt(Position + shakeOffset, Position + lookFly + shakeOffset, Vector3.Up);
     }
 
-
     private void UpdatePersonView()
     {
         float finalYaw = Yaw + HeadYaw;
-        Matrix rotation = Matrix.CreateRotationY(finalYaw) * Matrix.CreateRotationX(Pitch);
+
+        Matrix rotation =Matrix.CreateRotationY(finalYaw) *Matrix.CreateRotationX(Pitch);
+
         Vector3 look = Vector3.Transform(Vector3.Forward, rotation);
-        Vector3 shakeOffset = new((float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount, (float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount, 0);
+        Vector3 right = Vector3.Transform(Vector3.Right, Matrix.CreateRotationY(finalYaw));
+        Vector3 up = Vector3.Up;
+        Vector3 eyeOffset =right * _lookOffset.X +up * -_lookOffset.Y;
+        Vector3 shakeOffset = new((float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount,(float)(Random.Shared.NextDouble() - 0.5f) * ShakeAmount,0);
 
         if (Vehicle.ViewMode == CameraMode.FirstPerson)
         {
-            Vector3 eye = Position + Vector3.Up * EyeHeight + shakeOffset;
-            View = Matrix.CreateLookAt(eye, eye + look, Vector3.Up);
+            Vector3 eye =Position +Vector3.Up * EyeHeight +eyeOffset + shakeOffset;
+            View = Matrix.CreateLookAt(eye,eye + look,Vector3.Up);
         }
         else
         {
             Vector3 back = Vector3.Normalize(new Vector3(-look.X, 0, -look.Z));
-            Vector3 cameraPos = Position + Vector3.Up * 5f + back * 12f + shakeOffset;
-            View = Matrix.CreateLookAt(cameraPos, Position + Vector3.Up * 2f + shakeOffset, Vector3.Up);
+            Vector3 cameraPos = Position + Vector3.Up * 5f + back * 12f + eyeOffset + shakeOffset;
+
+            View = Matrix.CreateLookAt(cameraPos,Position + Vector3.Up * 2f + shakeOffset,Vector3.Up);
         }
     }
 
