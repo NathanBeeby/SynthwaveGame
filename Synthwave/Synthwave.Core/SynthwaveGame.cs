@@ -6,6 +6,7 @@ using Synthwave.Core.Classes.Graphics.HUD;
 using Synthwave.Core.Classes.Menus.Core;
 using Synthwave.Core.Classes.Menus.Screens;
 using Synthwave.Core.Classes.Particles;
+using Synthwave.Core.Classes.Vehicle;
 using Synthwave.Core.Classes.World;
 using Synthwave.Core.Classes.World.Weather;
 using Synthwave.Core.Localization;
@@ -19,7 +20,7 @@ public class SynthwaveGame : Game
 {
     #region Properties
     private GameServiceContainer _services;
-
+    private VehicleController _vehicle;
     private ScreenManager _screenManager;
 
     private readonly GraphicsDeviceManager _graphics;
@@ -68,18 +69,25 @@ public class SynthwaveGame : Game
         // Core MonoGame services
         _services.AddService(Content);
 
+        _services.AddService(new InputHandler());
+
         var spriteBatch = new SpriteBatch(GraphicsDevice);
+        _screenManager = new ScreenManager(_services);
+        var Weather = new WeatherSystem();
+
         _services.AddService(spriteBatch);
+        _services.AddService(Weather);
 
         // Your systems
-        var camera = new Camera3D(GraphicsDevice);
         var world = new SynthwaveWorld();
-        var hud = new HUD();
-
+        var Vehicle = new VehicleController(_services);
+        _services.AddService(Vehicle);
+        var camera = new Camera3D(GraphicsDevice, _screenManager);
         world.Initialize(Content, GraphicsDevice, camera);
-        hud.Load(Content);
-
         var debugFont = Content.Load<SpriteFont>("Fonts/Hud");
+
+
+
         _services.AddService(new DebugOverlay(debugFont));
 
         _brightEffect = Content.Load<Effect>("Shaders/BrightPassParticle");
@@ -92,17 +100,17 @@ public class SynthwaveGame : Game
 
         var particleManager = new ParticleManager();
         _services.AddService(particleManager);
-
-        _services.AddService(new InputHandler());
-        _services.AddService(new WeatherSystem());
         _services.AddService(camera);
         _services.AddService(world);
+
+        var hud = new HUD();
+        hud.Load(Content, Vehicle, camera, Weather);
         _services.AddService(hud);
 
-        // Screen system
-        _screenManager = new ScreenManager(_services);
         _screenManager.ChangeScreen(new GameplayScreen());
         _screenManager.LoadContent();
+        // Screen system
+
     }
 
     protected override void UnloadContent()

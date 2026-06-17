@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Synthwave.Core.Classes.Core.Math;
-using Synthwave.Core.Classes.World;
 using System.Collections.Generic;
 
 namespace Synthwave.Core.Classes.World.Roads;
@@ -82,8 +81,7 @@ public class RoadMeshRenderer
     {
         float eps = 0.02f;
 
-        return road.Evaluate(MathHelper.Clamp(t + eps, 0, 1)) -
-               road.Evaluate(MathHelper.Clamp(t - eps, 0, 1));
+        return road.Evaluate(MathHelper.Clamp(t + eps, 0, 1)) - road.Evaluate(MathHelper.Clamp(t - eps, 0, 1));
     }
 
     private void DrawTriangles(List<VertexPositionColor> verts)
@@ -95,13 +93,7 @@ public class RoadMeshRenderer
         foreach (var pass in effect.CurrentTechnique.Passes)
         {
             pass.Apply();
-
-            device.DrawUserPrimitives(
-                PrimitiveType.TriangleList,
-                verts.ToArray(),
-                0,
-                verts.Count / 3
-            );
+            device.DrawUserPrimitives(PrimitiveType.TriangleList,verts.ToArray(),0,verts.Count / 3);
         }
     }
     #endregion

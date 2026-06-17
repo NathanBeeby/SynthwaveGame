@@ -6,6 +6,7 @@ using Synthwave.Core.Classes.Core.Input;
 using Synthwave.Core.Classes.Graphics.HUD;
 using Synthwave.Core.Classes.Menus.Core;
 using Synthwave.Core.Classes.Particles;
+using Synthwave.Core.Classes.Vehicle;
 using Synthwave.Core.Classes.World;
 using Synthwave.Core.Classes.World.Weather;
 using System;
@@ -24,6 +25,7 @@ public class GameplayScreen : GameScreen
     private BloomManager _bloom;
     private ParticleManager _particleManager;
     private GraphicsDevice _graphics;
+    private VehicleController _vehicleController;
     #endregion
 
     #region Constructor
@@ -47,6 +49,7 @@ public class GameplayScreen : GameScreen
         _weather = Services.GetService<WeatherSystem>();
         _camera = Services.GetService<Camera3D>();
         _world = Services.GetService<SynthwaveWorld>();
+        _vehicleController = Services.GetService<VehicleController>();
         _hud = Services.GetService<HUD>();
         _bloom = Services.GetService<BloomManager>();
         _spriteBatch = Services.GetService<SpriteBatch>();
@@ -62,6 +65,7 @@ public class GameplayScreen : GameScreen
         _weather.Update(gameTime);
         _camera.Update(gameTime, _input, _weather);
         _world.Update(gameTime, _camera, _input, _weather);
+        _hud.Update(gameTime);
     }
 
     public override void Draw(GameTime gameTime)
@@ -91,7 +95,7 @@ public class GameplayScreen : GameScreen
         _spriteBatch.End();
 
         // ── HUD always last — screen space ───────────────────────────────────
-        _hud.Draw(_spriteBatch, _camera.Vehicle, _weather);
+        _hud.Draw(_spriteBatch);
     }
     //public override void Draw(GameTime gameTime)
     //{

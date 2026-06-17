@@ -20,6 +20,7 @@ public class RoadRenderer(GraphicsDevice device, Effect effect)
         _effect.Parameters["View"]?.SetValue(_camera.View);
         _effect.Parameters["Projection"]?.SetValue(_camera.Projection);
         _effect.Parameters["Time"]?.SetValue(time);
+        _effect.Parameters["CameraPosition"]?.SetValue(_camera.Position);
 
         _device.SetVertexBuffer(chunk.RoadVB);
         _device.Indices = chunk.RoadIB;
@@ -27,7 +28,7 @@ public class RoadRenderer(GraphicsDevice device, Effect effect)
         foreach (var pass in _effect.CurrentTechnique.Passes)
         {
             pass.Apply();
-            _device.DrawIndexedPrimitives(PrimitiveType.TriangleList,0,0,chunk.RoadIB.IndexCount / 3);
+            _device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, chunk.RoadIB.IndexCount / 3);
         }
     }
 }

@@ -4,6 +4,9 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/2DSprites/Interior.png</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/2DSprites/SpeedNeedle.png</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/2DSprites/SteeringWheel.png</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Fonts/Hud.spritefont</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Maps/WorldMap.png</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Models/Building.obj</File>
@@ -31,6 +34,9 @@
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/Weather.fx</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

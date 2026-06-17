@@ -12,6 +12,10 @@ public class RoadSplineSystem
     public List<Spline> Roads = [];
     public List<Spline> Splines => Roads;
 
+    // Roundabout splines get no kerb and no centre-line markings when the road
+    // mesh is built — NeonRoadMeshBuilder checks this set per-spline.
+    public HashSet<Spline> Roundabouts = [];
+
     // Grid parameters
     private const int GridCount = 8;      // avenues in each axis
     private const float GridSpacing = 600f;   // distance between avenues (world units)
@@ -24,6 +28,7 @@ public class RoadSplineSystem
     public void Generate(int seed = 1337)
     {
         Roads.Clear();
+        Roundabouts.Clear();
         _grid = new Vector3[GridCount + 1, GridCount + 1];
 
         var rng = new Random(seed);
@@ -68,9 +73,7 @@ public class RoadSplineSystem
 
                 var diag = new Spline();
                 diag.Points.Add(_grid[row, col]);
-                Vector3 mid = (_grid[row, col] + _grid[row + 1, col + 1]) * 0.5f
-                              + new Vector3(rng.NextSingle(-60f, 60f), 0f,
-                                            rng.NextSingle(-60f, 60f));
+                Vector3 mid = (_grid[row, col] + _grid[row + 1, col + 1]) * 0.5f + new Vector3(rng.NextSingle(-60f, 60f), 0f, rng.NextSingle(-60f, 60f));
                 diag.Points.Add(mid);
                 diag.Points.Add(_grid[row + 1, col + 1]);
                 Roads.Add(diag);
@@ -93,12 +96,10 @@ public class RoadSplineSystem
         for (int i = 0; i <= Segs; i++)
         {
             float a = MathHelper.TwoPi * i / Segs;
-            circle.Points.Add(centre + new Vector3(
-                MathF.Cos(a) * radius,
-                0f,
-                MathF.Sin(a) * radius));
+            circle.Points.Add(centre + new Vector3(MathF.Cos(a) * radius, 0f, MathF.Sin(a) * radius));
         }
         Roads.Add(circle);
+        Roundabouts.Add(circle);
     }
 
     private static Spline GenerateMainRoad(Random r)
@@ -108,8 +109,7 @@ public class RoadSplineSystem
         Vector3 end = new(r.Next(-2000, 2000), 0, r.Next(-2000, 2000));
         for (int i = 0; i < 6; i++)
         {
-            s.Points.Add(Vector3.Lerp(start, end, i / 5f) +
-                         new Vector3(r.Next(-200, 200), 0, r.Next(-200, 200)));
+            s.Points.Add(Vector3.Lerp(start, end, i / 5f) + new Vector3(r.Next(-200, 200), 0, r.Next(-200, 200)));
         }
         return s;
     }

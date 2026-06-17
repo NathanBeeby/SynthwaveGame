@@ -8,13 +8,14 @@ public class VehicleState
     public Vector3 Acceleration;
     public Vector3 AngularVelocity;
 
-    public float Mass = 1400f;
+    public float Mass = 14000f;
     public float InverseMass => 1f / Mass;
 
     public float EngineRPM = 800f;
     public float EngineBraking = 8f;
     public float WheelBase = 2.7f;
     public float SteeringLimit = MathHelper.ToRadians(35f);
+    public float SteeringInput;
 
     public int CurrentGear = 1;
     public bool ReverseGear = false;

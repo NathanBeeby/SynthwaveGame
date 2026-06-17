@@ -31,11 +31,19 @@ public static class Noise
     #region Methods
     public static float Perlin(float x, float y)
     {
-        int xi = (int)x & 255;
-        int yi = (int)y & 255;
+        // Use floor (not truncation) so xf/yf are always in [0,1), even for
+        // negative inputs. (int)x truncates toward zero, which gave negative
+        // fractional parts for negative coordinates — that fed Fade() values
+        // outside its valid range and made Lerp() extrapolate wildly,
+        // producing huge spikes/pits across the whole negative half of the world.
+        float xFloor = MathF.Floor(x);
+        float yFloor = MathF.Floor(y);
 
-        float xf = x - (int)x;
-        float yf = y - (int)y;
+        int xi = (int)xFloor & 255;
+        int yi = (int)yFloor & 255;
+
+        float xf = x - xFloor;
+        float yf = y - yFloor;
 
         float u = Fade(xf);
         float v = Fade(yf);

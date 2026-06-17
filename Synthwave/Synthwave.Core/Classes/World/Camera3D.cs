@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Synthwave.Core.Classes.Core.Enums;
 using Synthwave.Core.Classes.Core.Input;
+using Synthwave.Core.Classes.Menus.Core;
 using Synthwave.Core.Classes.Vehicle;
 using Synthwave.Core.Classes.World.Weather;
 using System;
@@ -13,6 +14,7 @@ namespace Synthwave.Core.Classes.World;
 public class Camera3D
 {
     #region Properties
+    private ScreenManager screenManager;
     public bool FlyMode;
 
     public float Yaw;
@@ -30,11 +32,6 @@ public class Camera3D
 
     public Matrix View { get; private set; }
     public Matrix Projection { get; private set; }
-
-    // Captured ONCE from the device. Do NOT derive this back out of the
-    // Projection matrix (M11/M22 == 1/aspectRatio, not aspectRatio) — doing
-    // that flips the ratio every frame and makes the whole world stretch
-    // and squash violently each frame ("shaking").
     private readonly float _aspectRatio;
 
     private MouseState _prevMouse;
@@ -43,9 +40,10 @@ public class Camera3D
     #endregion
 
     #region Constructor
-    public Camera3D(GraphicsDevice device)
+    public Camera3D(GraphicsDevice device, ScreenManager Screen)
     {
-        Vehicle = new VehicleController(this);
+        screenManager = Screen;
+        Vehicle = screenManager.Services.GetService<VehicleController>();
         Position = new Vector3(0, 10, 0);
         Yaw = 0;
         Pitch = -0.1f;

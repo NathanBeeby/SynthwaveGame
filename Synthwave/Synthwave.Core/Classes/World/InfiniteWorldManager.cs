@@ -14,8 +14,8 @@ public class InfiniteWorldManager(GraphicsDevice device, TerrainSystem terrain)
 {
     private readonly Dictionary<Point, WorldChunk> _chunks = [];
     private readonly TerrainChunkBuilder _terrainBuilder = new(device, terrain);
-    private readonly RoadMeshBuilder _roadBuilder = new(device, terrain); // ← only this one
-    public int ChunkSize = 1000;
+    private readonly NeonRoadMeshBuilder _roadBuilder = new(device, terrain); // switched from RoadMeshBuilder
+    public static int ChunkSize = 1000;
     public int ViewDistance = 3;
     public int EvictDistance = 5;
 
@@ -30,15 +30,19 @@ public class InfiniteWorldManager(GraphicsDevice device, TerrainSystem terrain)
                 var chunk = GetOrCreate(x, z);
                 if (chunk.IsBuilt) continue;
                 _terrainBuilder.Build(chunk, ChunkSize);
-                var localRoads = roads.Roads
-                    .Where(r => RoadTouchesChunk(r, x, z))
-                    .ToList();
-                _roadBuilder.Build(chunk, localRoads);
+                var localRoads = roads.Roads.Where(r => RoadTouchesChunk(r, x, z)).ToList();
+
+
+                float minX = x * ChunkSize;
+                float minZ = z * ChunkSize;
+
+                BoundingBox bounds =new(new Vector3(minX,-10000,minZ),new Vector3(minX + ChunkSize,10000,minZ + ChunkSize));
+
+                _roadBuilder.Build(chunk,roads);
+                chunk.IsBuilt = true;
             }
 
-        var toEvict = _chunks.Values
-            .Where(c => ChebyshevDist(c.Coord, cx, cz) > EvictDistance)
-            .ToList();
+        var toEvict = _chunks.Values.Where(c => ChebyshevDist(c.Coord, cx, cz) > EvictDistance).ToList();
         foreach (var c in toEvict)
         {
             c.Dispose();
@@ -59,8 +63,7 @@ public class InfiniteWorldManager(GraphicsDevice device, TerrainSystem terrain)
 
     private int ChunkIndex(float worldCoord) => (int)MathF.Floor(worldCoord / ChunkSize);
 
-    private static int ChebyshevDist(Point p, int cx, int cz)
-        => Math.Max(Math.Abs(p.X - cx), Math.Abs(p.Y - cz));
+    private static int ChebyshevDist(Point p, int cx, int cz) => Math.Max(Math.Abs(p.X - cx), Math.Abs(p.Y - cz));
 
     private bool RoadTouchesChunk(Spline road, int cx, int cz)
     {

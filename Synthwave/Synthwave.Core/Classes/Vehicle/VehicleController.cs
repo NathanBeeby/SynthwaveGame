@@ -9,7 +9,7 @@ using System;
 
 namespace Synthwave.Core.Classes.Vehicle;
 
-public class VehicleController(Camera3D camera = null)
+public class VehicleController(GameServiceContainer services)
 {
     #region Properties
     public Vector3 Position = Vector3.Zero;
@@ -30,7 +30,8 @@ public class VehicleController(Camera3D camera = null)
 
     public WeatherSystem _weather;
     private TerrainSystem _terrain;
-    public Camera3D _camera = camera;
+    private GameServiceContainer _services = services;
+    public Camera3D _camera = services.GetService<Camera3D>();
     #endregion
 
     #region Update
@@ -52,6 +53,10 @@ public class VehicleController(Camera3D camera = null)
         float throttle = input.IsKeyDown(Keys.W) ? 1f : 0f;
         float brake = input.IsKeyDown(Keys.Space) ? 1f : 0f;
         float steer = (input.IsKeyDown(Keys.A) ? 1f : 0f) - (input.IsKeyDown(Keys.D) ? 1f : 0f);
+
+        float steerInput = (input.IsKeyDown(Keys.A) ? 0f : 1f) - (input.IsKeyDown(Keys.D) ? 0f : 1f);
+
+        State.SteeringInput = steerInput;
 
         Engine.Throttle = throttle;
 
@@ -80,18 +85,65 @@ public class VehicleController(Camera3D camera = null)
         UpdateCameraFeedback(dt);
         SyncDisplayState();
     }
+    private void ApplyNaturalDeceleration(float dt)
+    {
+        Vector3 velocity = Physics.Velocity;
+        float speed = velocity.Length();
+
+        if (speed < 0.01f)
+        {
+            Physics.Velocity = Vector3.Zero;
+            return;
+        }
+
+        if (float.IsNaN(speed) || float.IsInfinity(speed))
+        {
+            Physics.Velocity = Vector3.Zero;
+            return;
+        }
+
+        // Normalize velocity direction safely
+        Vector3 velDir = velocity / speed;
+
+        if (float.IsNaN(velDir.X) || float.IsNaN(velDir.Y) || float.IsNaN(velDir.Z))
+        {
+            Physics.Velocity = Vector3.Zero;
+            return;
+        }
+
+        Vector3 decel = Vector3.Zero;
+        float drag = 0.42f * speed * speed;
+        decel += -velDir * drag * dt * 0.02f;
+
+        decel += -velDir * Physics.RollingResistance * dt;
+
+        if (Engine.Throttle < 0.05f)
+        {
+            float engineBrake = State.EngineBraking * 40f;
+            decel += -velDir * engineBrake * dt;
+        }
+
+        Physics.Velocity += decel;
+        if (Physics.Velocity.LengthSquared() < 0.05f) Physics.Velocity = Vector3.Zero;   
+    }
 
     private void UpdateTerrainAndWeatherEffects(float hydro)
     {
         float weatherGrip = _weather.FrictionMultiplier * (1f - hydro);
         float tyreGrip = Tyres.GetSideGrip(Physics.Velocity.Length());
+
+        weatherGrip = VehiclePhysics.Safe(weatherGrip);
+        tyreGrip = VehiclePhysics.Safe(tyreGrip);
+
         Physics.Grip = MathHelper.Clamp(weatherGrip * tyreGrip, 0.1f, 1f);
+        if (float.IsNaN(Physics.Grip) || float.IsInfinity(Physics.Grip)) Physics.Grip = 1f;
         State.DriftFactor = 1f - Physics.Grip;
     }
 
     private void UpdateEngineState(float engineForce, float brakeForce, float steerInput, float dt)
     {
         Physics.ApplyForces((Fuel.Fuel != 0) ? engineForce : 0, brakeForce, steerInput, dt);
+        ApplyNaturalDeceleration(dt);
     }
 
     private void UpdateHydroplaneLateralEffect(float hydro)
@@ -106,11 +158,6 @@ public class VehicleController(Camera3D camera = null)
     private void UpdateYawSync()
     {
         Yaw = Physics.Yaw;
-
-        // Only take horizontal movement (X/Z) from the physics sim. Height
-        // (Y) is owned by Camera3D.SnapToTerrain — copying Physics.Position.Y
-        // here would stomp the terrain-snapped height every frame and force
-        // the car back onto a flat plane.
         Position.X = Physics.Position.X;
         Position.Z = Physics.Position.Z;
     }
@@ -127,10 +174,6 @@ public class VehicleController(Camera3D camera = null)
 
     private void SyncDisplayState()
     {
-        // Keep the HUD-facing State in sync with the live simulation values.
-        // Previously these were never written, so State.CurrentSpeed stayed
-        // at 0 (HUD speed frozen, automatic gear shifts never trigger) and
-        // State.EngineRPM stayed at its default 800 (HUD RPM frozen).
         State.CurrentSpeed = Physics.Velocity.Length() * 3.6f; // m/s -> km/h
         State.EngineRPM = Engine.RPM;
     }

@@ -3,7 +3,7 @@
   <SourceFile>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/PostProcessingShader.fx</SourceFile>
   <SourceTime>2026-06-11T23:38:48.5433522+01:00</SourceTime>
   <DestFile>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/bin/DesktopGL/Shaders/PostProcessingShader.xnb</DestFile>
-  <DestTime>2026-06-14T20:44:32.5992434+01:00</DestTime>
+  <DestTime>2026-06-17T21:35:59.0008863+01:00</DestTime>
   <Importer>EffectImporter</Importer>
   <ImporterTime>2025-04-05T11:10:54+01:00</ImporterTime>
   <Processor>EffectProcessor</Processor>
