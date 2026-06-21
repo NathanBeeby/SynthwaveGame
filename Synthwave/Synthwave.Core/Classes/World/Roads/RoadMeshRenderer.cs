@@ -55,6 +55,8 @@ public class RoadMeshRenderer
             Vector3 left = p - right * width;
             Vector3 rightPt = p + right * width;
 
+
+
             left.Y = terrain.GetHeight(left.X, left.Z);
             rightPt.Y = terrain.GetHeight(rightPt.X, rightPt.Z);
 

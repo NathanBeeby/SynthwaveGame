@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <SourceFile>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/ReflectiveRoad.fx</SourceFile>
-  <SourceTime>2026-06-16T21:59:42.3114064+01:00</SourceTime>
+  <SourceTime>2026-06-19T20:41:40.2603502+01:00</SourceTime>
   <DestFile>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/bin/DesktopGL/Shaders/ReflectiveRoad.xnb</DestFile>
-  <DestTime>2026-06-17T21:35:59.9200473+01:00</DestTime>
+  <DestTime>2026-06-19T20:53:19.8483794+01:00</DestTime>
   <Importer>EffectImporter</Importer>
   <ImporterTime>2025-04-05T11:10:54+01:00</ImporterTime>
   <Processor>EffectProcessor</Processor>

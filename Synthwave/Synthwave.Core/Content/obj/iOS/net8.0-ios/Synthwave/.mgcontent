@@ -20,8 +20,10 @@
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/CombinedParticle.fx</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/EmissiveShader.fx</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/FogShader.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/NeonCentreLine.fx</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/NeonMask.fx</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/NeonRoad.fx</File>
+    <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/NeonSidewalk.fx</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/PostProcessingShader.fx</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/RainPixelShader.fx</File>
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/RainSky.fx</File>
@@ -34,6 +36,8 @@
     <File>C:/Users/natha/Documents/Github/Synthwave/Synthwave/Synthwave.Core/Content/Shaders/Weather.fx</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />

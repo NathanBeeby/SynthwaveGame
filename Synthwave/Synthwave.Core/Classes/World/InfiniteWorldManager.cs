@@ -28,17 +28,17 @@ public class InfiniteWorldManager(GraphicsDevice device, TerrainSystem terrain)
             for (int z = cz - ViewDistance; z <= cz + ViewDistance; z++)
             {
                 var chunk = GetOrCreate(x, z);
+          
                 if (chunk.IsBuilt) continue;
                 _terrainBuilder.Build(chunk, ChunkSize);
                 var localRoads = roads.Roads.Where(r => RoadTouchesChunk(r, x, z)).ToList();
-
 
                 float minX = x * ChunkSize;
                 float minZ = z * ChunkSize;
 
                 BoundingBox bounds =new(new Vector3(minX,-10000,minZ),new Vector3(minX + ChunkSize,10000,minZ + ChunkSize));
 
-                _roadBuilder.Build(chunk,roads);
+                _roadBuilder.Build(chunk, localRoads, roads.Roundabouts);
                 chunk.IsBuilt = true;
             }
 

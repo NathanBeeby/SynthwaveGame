@@ -1,4 +1,6 @@
 // ━━━━━━ Kernel: Pure Mirror Reflective Road ━━━━━━
+// Does ONE job: a tinted mirror surface. No kerb, no centre line —
+// those live in NeonSidewalk.fx and NeonCentreLine.fx on their own meshes.
 
 float4x4 World;
 float4x4 View;
@@ -6,23 +8,34 @@ float4x4 Projection;
 
 float3 CameraPosition;
 float  Time;
-float  Wetness;          // 0 = dry, 1 = mirror wet
-float  EmissiveBoost = 2.5f;
+
+// 0 = matte road, 1 = full mirror. Drive this from weather (rain) or just
+// hold it high (e.g. 0.7-0.9) for an always-glossy synthwave look.
+float  Wetness = 0.85f;
+
+// How much black is mixed into the reflection. 0 = pure mirror, 1 = solid
+// black. Keep this low (0.10-0.18) — "tinted, not painted".
+float  TintAmount = 0.12f;
 
 // ─────────────────────────────────────────────────────────────
-// Colors
+// Optional: real scene reflection (cars, buildings) instead of sky-only.
+// Leave ReflectionStrength at 0 and this whole block is inert — the
+// shader falls back to the procedural sky mirror below.
+//
+// To wire it up for real: render Traffic + City BEFORE the road pass,
+// resolve that snapshot into a separate texture (you can't sample the
+// same render target you're currently writing to), and set it here as
+// ReflectionTex. It's a screen-space sample, flipped vertically, with a
+// tiny normal-based wobble so it doesn't read as a flat decal.
 // ─────────────────────────────────────────────────────────────
-float3 RoadColor       = float3(0.04, 0.03, 0.07);
-float3 CentreLineColor = float3(0.0, 1.0, 1.0);
-float3 KerbColor       = float3(1.0, 0.85, 0.0);
-
-// UV layout
-float KerbBandWidth       = 0.04f;
-float CenterLineHalfWidth = 0.015f;
-
-// Dash
-float DashLength = 6.0;
-float DashGap    = 4.0;
+texture ReflectionTex;
+sampler ReflectionSampler = sampler_state
+{
+    Texture = <ReflectionTex>;
+    MinFilter = Linear; MagFilter = Linear; MipFilter = Linear;
+    AddressU = Clamp; AddressV = Clamp;
+};
+float ReflectionStrength = 0.0f;
 
 // ─────────────────────────────────────────────────────────────
 // Vertex
@@ -37,11 +50,10 @@ struct VS_INPUT
 
 struct VS_OUTPUT
 {
-    float4 Position : POSITION0;
-    float3 WorldPos : TEXCOORD0;
-    float3 Normal   : TEXCOORD1;
-    float2 UV       : TEXCOORD2;
-    float  RoadType : TEXCOORD3;
+    float4 Position  : POSITION0;
+    float3 WorldPos  : TEXCOORD0;
+    float3 Normal    : TEXCOORD1;
+    float4 ScreenPos : TEXCOORD2;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
@@ -52,19 +64,17 @@ VS_OUTPUT VS(VS_INPUT input)
     o.WorldPos = world.xyz;
 
     float4 view = mul(world, View);
-    o.Position = mul(view, Projection);
+    o.Position  = mul(view, Projection);
+    o.ScreenPos = o.Position;
 
     float3x3 normalMatrix = (float3x3)World;
     o.Normal = normalize(mul(input.Normal, normalMatrix));
-
-    o.UV = input.UV;
-    o.RoadType = input.RoadType;
 
     return o;
 }
 
 // ─────────────────────────────────────────────────────────────
-// Procedural Sky (reflection source)
+// Procedural sky (always-available reflection source)
 // ─────────────────────────────────────────────────────────────
 float3 SampleSky(float3 dir)
 {
@@ -78,93 +88,38 @@ float3 SampleSky(float3 dir)
     float band = sin(dir.x * 12.0 + Time * 0.4) * 0.5 + 0.5;
     col += saturate(band - 0.8) * horizon;
 
-    // boost brightness so reflections read clearly
     return saturate(col * 1.6);
 }
 
 // ─────────────────────────────────────────────────────────────
-// Pixel Shader
+// Pixel
 // ─────────────────────────────────────────────────────────────
 float4 PS(VS_OUTPUT input) : COLOR0
 {
-    float u = saturate(input.UV.x);
-    float distAlong = input.UV.y;
-
-    bool isStreet = input.RoadType < 0.5f;
-
-    float3 baseColor = RoadColor;
-    float emissive = 0.0;
-
-    // ─────────────────────────────────────────────
-    // ROAD DETAILS (kerbs + center line)
-    // ─────────────────────────────────────────────
-    if (isStreet)
-    {
-        float leftKerb  = step(u, KerbBandWidth);
-        float rightKerb = step(1.0 - KerbBandWidth, u);
-        float kerbMask  = saturate(leftKerb + rightKerb);
-
-        float distToCenter = abs(u - 0.5);
-
-        float centerMask =
-            1.0 - smoothstep(CenterLineHalfWidth,
-                             CenterLineHalfWidth * 2.0,
-                             distToCenter);
-
-        float period = DashLength + DashGap;
-        float phase  = frac(distAlong / period);
-        float dashOn = step(phase, DashLength / period);
-
-        centerMask *= dashOn;
-
-        emissive += kerbMask * 1.5;
-        emissive += centerMask * 2.0;
-
-        // reduce albedo influence (important for mirror look)
-        baseColor *= 0.25;
-    }
-    else
-    {
-        float radiusBand = smoothstep(0.48f, 0.5f, abs(u - 0.5f));
-        emissive += radiusBand * 1.2;
-    }
-
-    // ─────────────────────────────────────────────
-    // TRUE MIRROR REFLECTION MODEL
-    // ─────────────────────────────────────────────
     float3 viewDir = normalize(CameraPosition - input.WorldPos);
     float3 normal  = normalize(input.Normal);
-
     float3 reflDir = reflect(-viewDir, normal);
-    float3 skyRef  = SampleSky(reflDir);
 
-    // wetness is DIRECT mirror strength (no Fresnel dependency)
-    float mirrorStrength = Wetness;
+    float3 skyRef = SampleSky(reflDir);
 
-    // slight angular darkening only (not Fresnel blending)
+    // Optional real-scene reflection blended in on top of the sky.
+    float2 screenUV = (input.ScreenPos.xy / input.ScreenPos.w) * 0.5 + 0.5;
+    screenUV.y = 1.0 - screenUV.y;
+    screenUV += normal.xz * 0.02;
+
+    float3 sceneRef  = tex2D(ReflectionSampler, screenUV).rgb;
+    float3 reflection = lerp(skyRef, sceneRef, ReflectionStrength);
+
+    // Mild grazing-angle darkening only — never breaks the mirror illusion.
     float ndv = saturate(dot(normal, viewDir));
     float angleFactor = lerp(0.85, 1.0, ndv);
 
-    // base becomes nearly black when wet
-    float3 dryRoad = RoadColor;
-    float3 wetRoad = float3(0.01, 0.01, 0.015);
+    float3 mirror = reflection * Wetness * angleFactor;
+    float3 col    = lerp(mirror, float3(0, 0, 0), TintAmount);
 
-    float3 base = lerp(dryRoad, wetRoad, Wetness);
-
-    // FINAL COMPOSITION (reflection-first)
-    float3 col = skyRef * mirrorStrength * angleFactor
-               + base * (1.0 - mirrorStrength);
-
-    // ─────────────────────────────────────────────
-    // EMISSIVE OVERLAY (after reflection)
-    // ─────────────────────────────────────────────
-    float3 emissiveCol = col * emissive * EmissiveBoost;
-    col += saturate(emissiveCol);
-
-    return float4(col, 1.0);
+    return float4(saturate(col), 1.0);
 }
 
-// ─────────────────────────────────────────────────────────────
 technique ReflectiveRoad
 {
     pass P0

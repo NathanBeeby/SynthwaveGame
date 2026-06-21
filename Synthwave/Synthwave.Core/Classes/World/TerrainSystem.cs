@@ -6,10 +6,6 @@ namespace Synthwave.Core.Classes.World;
 public class TerrainSystem
 {
     #region Properties
-    // Smaller amplitude ("slight deviations") and higher base frequency
-    // ("frequent hills"). Tune to taste — HeightScale ~4-8 and
-    // NoiseScale ~0.008-0.015 give gentle, frequent bumps rather than
-    // sweeping mountains.
     public float HeightScale = 6f;
     public float NoiseScale = 0.01f;
 
@@ -56,11 +52,7 @@ public class TerrainSystem
 
     public float GetHeight(float x, float z)
     {
-        // Base layer: broad gentle undulation.
         float n1 = Noise.Perlin(x * NoiseScale, z * NoiseScale);
-        // Second layer at double the frequency adds extra small bumps
-        // on top, instead of the old lower-frequency layer that just
-        // made the big hills even bigger.
         float n2 = Noise.Perlin(x * NoiseScale * 2f, z * NoiseScale * 2f);
         return (n1 * 0.7f + n2 * 0.3f) * HeightScale;
     }

@@ -46,6 +46,7 @@ public class SynthwaveWorld
     private RenderTarget2D _speedRT;
     private RenderTarget2D _postRT;
     private RenderTarget2D _tyreMarkRT;
+    private RenderTarget2D _skyReflectionRT;
 
     private Effect _rainEffect;
     private Effect _rainSkyEffect;
@@ -56,6 +57,8 @@ public class SynthwaveWorld
     private Effect _neonMaskEffect;
     private Effect _postEffect;
     private Effect _tyreMarkEffect;
+    private Effect _neonCentreLineFx;
+    private Effect _neonSidewalkFx;
 
     private readonly VertexPositionColor[] _carVerts = new VertexPositionColor[2];
     private readonly VertexPositionColor[] _blockVerts = new VertexPositionColor[2];
@@ -87,6 +90,15 @@ public class SynthwaveWorld
         Infinite = new InfiniteWorldManager(device, Terrain);
 
         Roads.Generate();
+        foreach (var spline in Roads.Splines)
+        {
+            for (int i = 0; i < spline.Points.Count; i++)
+            {
+                Vector3 p = spline.Points[i];
+                p.Y = Terrain.GetHeight(p.X, p.Z);
+                spline.Points[i] = p;
+            }
+        }
         City.Generate(Roads, Terrain);
         Traffic.Spawn(Roads, Terrain);
     }
@@ -109,6 +121,7 @@ public class SynthwaveWorld
         _speedRT = new RenderTarget2D(device, w, h, false, SurfaceFormat.Color, DepthFormat.None);
         _postRT = new RenderTarget2D(device, w, h, false, SurfaceFormat.Color, DepthFormat.None);
         _tyreMarkRT = new RenderTarget2D(device, w, h, false, SurfaceFormat.Color, DepthFormat.None);
+        _skyReflectionRT = new RenderTarget2D(device, w / 2, h / 2, false, SurfaceFormat.Color, DepthFormat.None);
     }
 
     private void InitializeQuads()
@@ -135,6 +148,9 @@ public class SynthwaveWorld
         _neonMaskEffect = content.Load<Effect>("Shaders/NeonMask");
         _postEffect = content.Load<Effect>("Shaders/PostProcessingShader");
         _tyreMarkEffect = content.Load<Effect>("Shaders/TyreMark");
+        _neonCentreLineFx = content.Load<Effect>("Shaders/NeonCentreLine");
+        _neonSidewalkFx = content.Load<Effect>("Shaders/NeonSidewalk");
+
     }
 
     public void Initialize(ContentManager content, GraphicsDevice device, Camera3D camera)
@@ -155,7 +171,7 @@ public class SynthwaveWorld
         Models.LoadModels();
         Models.Populate(Roads, Terrain);
 
-        _roadRenderer = new RoadRenderer(device, _reflectiveRoadFx);
+        _roadRenderer = new RoadRenderer(device, _reflectiveRoadFx, _neonSidewalkFx, _neonCentreLineFx);
         _roadRenderer.SetCamera(camera);
 
         device.SetRenderTarget(_tyreMarkRT);
@@ -201,15 +217,18 @@ public class SynthwaveWorld
     }
 
     private static BasicEffect MakeEffect(GraphicsDevice device) => new(device) { VertexColorEnabled = true, LightingEnabled = false };
-    private void DrawTerrain(GraphicsDevice device, Camera3D camera, List<WorldChunk> chunks)
+    private void DrawTerrain(GraphicsDevice device, Camera3D camera, List<WorldChunk> chunks, WeatherSystem weather, float time)
     {
         _terrainFx.View = camera.View;
         _terrainFx.Projection = camera.Projection;
         _terrainFx.World = Matrix.Identity;
+        float wetness = MathHelper.Clamp(weather.RainAmount, 0f, 1f);
 
         foreach (var chunk in chunks)
         {
             if (!chunk.IsBuilt || chunk.TerrainVB == null) continue;
+           
+            //_roadRenderer.Draw(chunk, time, wetness);
             device.SetVertexBuffer(chunk.TerrainVB);
 
             // ── Solid pass (triangle list) ─────────────────────────────────
@@ -218,9 +237,7 @@ public class SynthwaveWorld
             foreach (var pass in _terrainFx.CurrentTechnique.Passes)
             {
                 pass.Apply();
-                device.DrawIndexedPrimitives(
-                    PrimitiveType.TriangleList, 0, 0,
-                    chunk.TerrainIB.IndexCount / 3);
+                device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0,chunk.TerrainIB.IndexCount / 3);
             }
 
             // ── Wireframe grid pass (line list) ────────────────────────────
@@ -230,17 +247,12 @@ public class SynthwaveWorld
             foreach (var pass in _terrainFx.CurrentTechnique.Passes)
             {
                 pass.Apply();
-                device.DrawIndexedPrimitives(
-                    PrimitiveType.LineList, 0, 0,
-                    chunk.GridIB.IndexCount / 2);
+                device.DrawIndexedPrimitives(PrimitiveType.LineList, 0, 0,chunk.GridIB.IndexCount / 2);
             }
             device.BlendState = BlendState.Opaque;
         }
     }
 
-    // Dashing and reflectivity now live entirely in ReflectiveRoad.fx + the road mesh's
-    // per-vertex distance/UV data, so this is just a render pass — no CPU geometry building,
-    // no timer-based blinking.
     private void DrawRoads(GraphicsDevice device, List<WorldChunk> chunks, WeatherSystem weather, float time)
     {
         device.BlendState = BlendState.Opaque;
@@ -250,7 +262,7 @@ public class SynthwaveWorld
         foreach (var chunk in chunks)
         {
             if (!chunk.IsBuilt || chunk.RoadVB == null) continue;
-            _roadRenderer.Draw(chunk, time);
+            _roadRenderer.Draw(chunk, time, wetness);
         }
     }
 
@@ -258,16 +270,26 @@ public class SynthwaveWorld
     {
         float time = (float)gameTime.TotalGameTime.TotalSeconds;
 
+        // ── Reflection capture pass ─────────────────────────────────
+        device.SetRenderTarget(_skyReflectionRT);
+        device.Clear(new Color(10, 0, 30));
+        device.DepthStencilState = DepthStencilState.None;
+        device.BlendState = BlendState.Opaque;
+        Sky.DrawSky(device, camera);
+
+        // ── Main scene pass ──────────────────────────────────────────
         device.SetRenderTarget(_sceneRT);
         device.Clear(new Color(10, 0, 30));
-        device.DepthStencilState = DepthStencilState.Default; // requires a depth buffer that doesn't exist
+        device.DepthStencilState = DepthStencilState.Default;
         device.BlendState = BlendState.Opaque;
         device.RasterizerState = RasterizerState.CullCounterClockwise;
-
         Sky.DrawSky(device, camera);
+
         var chunks = Infinite.GetVisibleChunks(camera.Position);
-        DrawTerrain(device, camera, chunks);
+        DrawTerrain(device, camera, chunks, weather, time);
         Ground.Draw(camera, gameTime);
+
+        _roadRenderer.SetReflectionSource(_skyReflectionRT, 0.85f);
         DrawRoads(device, chunks, weather, time);
         foreach (var car in Traffic.Cars) DrawCarGPU(device, car);
         foreach (var block in City.Blocks) DrawBlockGPU(device, block);

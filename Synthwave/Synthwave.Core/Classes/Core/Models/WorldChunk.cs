@@ -7,19 +7,35 @@ public class WorldChunk
 {
     public Point Coord;
     public bool IsBuilt;
+
     public VertexBuffer TerrainVB;
     public IndexBuffer TerrainIB;
-    public IndexBuffer GridIB;      // ← NEW: line-list for neon wireframe
+    public IndexBuffer GridIB;          // neon wireframe
+
     public VertexBuffer RoadVB;
     public IndexBuffer RoadIB;
+
+    public VertexBuffer SidewalkVB;
+    public IndexBuffer SidewalkIB;
+
+    public VertexBuffer CentreLineVB;
+    public IndexBuffer CentreLineIB;
 
     public void Dispose()
     {
         TerrainVB?.Dispose(); TerrainVB = null;
         TerrainIB?.Dispose(); TerrainIB = null;
-        GridIB?.Dispose(); GridIB = null;   // ← NEW
+        GridIB?.Dispose(); GridIB = null;
+
         RoadVB?.Dispose(); RoadVB = null;
         RoadIB?.Dispose(); RoadIB = null;
+
+        SidewalkVB?.Dispose(); SidewalkVB = null;
+        SidewalkIB?.Dispose(); SidewalkIB = null;
+
+        CentreLineVB?.Dispose(); CentreLineVB = null;
+        CentreLineIB?.Dispose(); CentreLineIB = null;
+
         IsBuilt = false;
     }
 }

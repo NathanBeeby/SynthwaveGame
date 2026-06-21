@@ -1,1 +1,0 @@
-C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.WindowsDX\obj\Debug\net8.0-windows\mgcb.tool.restore

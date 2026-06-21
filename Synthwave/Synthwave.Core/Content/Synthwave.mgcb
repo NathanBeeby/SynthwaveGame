@@ -169,11 +169,29 @@
 /processorParam:DebugMode=Auto
 /build:Shaders/BasicParticleShader.fx
 
+#begin Shaders/BasicParticleShader.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/BasicParticleShader.fx
+
 #begin Shaders/BlurParticle.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Shaders/BlurParticle.fx
+
+#begin Shaders/BlurParticle.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/BlurParticle.fx
+
+#begin Shaders/BrightPassParticle.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/BrightPassParticle.fx
 
 #begin Shaders/BrightPassParticle.fx
 /importer:EffectImporter
@@ -187,6 +205,18 @@
 /processorParam:DebugMode=Auto
 /build:Shaders/CombinedParticle.fx
 
+#begin Shaders/CombinedParticle.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/CombinedParticle.fx
+
+#begin Shaders/EmissiveShader.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/EmissiveShader.fx
+
 #begin Shaders/EmissiveShader.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -198,6 +228,24 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Shaders/FogShader.fx
+
+#begin Shaders/FogShader.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/FogShader.fx
+
+#begin Shaders/NeonCentreLine.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/NeonCentreLine.fx
+
+#begin Shaders/NeonMask.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/NeonMask.fx
 
 #begin Shaders/NeonMask.fx
 /importer:EffectImporter
@@ -211,11 +259,35 @@
 /processorParam:DebugMode=Auto
 /build:Shaders/NeonRoad.fx
 
+#begin Shaders/NeonRoad.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/NeonRoad.fx
+
+#begin Shaders/NeonSidewalk.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/NeonSidewalk.fx
+
 #begin Shaders/PostProcessingShader.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Shaders/PostProcessingShader.fx
+
+#begin Shaders/PostProcessingShader.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/PostProcessingShader.fx
+
+#begin Shaders/RainPixelShader.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/RainPixelShader.fx
 
 #begin Shaders/RainPixelShader.fx
 /importer:EffectImporter
@@ -229,11 +301,29 @@
 /processorParam:DebugMode=Auto
 /build:Shaders/RainSky.fx
 
+#begin Shaders/RainSky.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/RainSky.fx
+
 #begin Shaders/Reflection.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Shaders/Reflection.fx
+
+#begin Shaders/Reflection.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/Reflection.fx
+
+#begin Shaders/ReflectiveRoad.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/ReflectiveRoad.fx
 
 #begin Shaders/ReflectiveRoad.fx
 /importer:EffectImporter
@@ -247,6 +337,18 @@
 /processorParam:DebugMode=Auto
 /build:Shaders/Snow.fx
 
+#begin Shaders/Snow.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/Snow.fx
+
+#begin Shaders/SpeedEffect.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/SpeedEffect.fx
+
 #begin Shaders/SpeedEffect.fx
 /importer:EffectImporter
 /processor:EffectProcessor
@@ -259,11 +361,29 @@
 /processorParam:DebugMode=Auto
 /build:Shaders/StandardShader.fx
 
+#begin Shaders/StandardShader.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/StandardShader.fx
+
 #begin Shaders/TyreMark.fx
 /importer:EffectImporter
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:Shaders/TyreMark.fx
+
+#begin Shaders/TyreMark.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/TyreMark.fx
+
+#begin Shaders/Weather.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:Shaders/Weather.fx
 
 #begin Shaders/Weather.fx
 /importer:EffectImporter

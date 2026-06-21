@@ -14,8 +14,10 @@ C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.DesktopGL\bin\Debu
 C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.DesktopGL\bin\Debug\net8.0\Content\Shaders\CombinedParticle.xnb
 C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.DesktopGL\bin\Debug\net8.0\Content\Shaders\EmissiveShader.xnb
 C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.DesktopGL\bin\Debug\net8.0\Content\Shaders\FogShader.xnb
+C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.DesktopGL\bin\Debug\net8.0\Content\Shaders\NeonCentreLine.xnb
 C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.DesktopGL\bin\Debug\net8.0\Content\Shaders\NeonMask.xnb
 C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.DesktopGL\bin\Debug\net8.0\Content\Shaders\NeonRoad.xnb
+C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.DesktopGL\bin\Debug\net8.0\Content\Shaders\NeonSidewalk.xnb
 C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.DesktopGL\bin\Debug\net8.0\Content\Shaders\PostProcessingShader.xnb
 C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.DesktopGL\bin\Debug\net8.0\Content\Shaders\RainPixelShader.xnb
 C:\Users\natha\Documents\Github\Synthwave\Synthwave\Synthwave.DesktopGL\bin\Debug\net8.0\Content\Shaders\RainSky.xnb
