@@ -6,6 +6,7 @@ using Synthwave.Core.Classes.Core.Input;
 using Synthwave.Core.Classes.World;
 using Synthwave.Core.Classes.World.Weather;
 using System;
+using System.Runtime.Intrinsics.Arm;
 
 namespace Synthwave.Core.Classes.Vehicle;
 
@@ -51,15 +52,13 @@ public class VehicleController(GameServiceContainer services)
     {
         float throttle = input.IsKeyDown(Keys.W) ? 1f : 0f;
         float brake = input.IsKeyDown(Keys.Space) ? 1f : 0f;
-        float steer = (input.IsKeyDown(Keys.A) ? 1f : 0f) - (input.IsKeyDown(Keys.D) ? 1f : 0f);
-
-        float steerInput = (input.IsKeyDown(Keys.A) ? 0f : 0f) - (input.IsKeyDown(Keys.D) ? 1f : 0f);
+        float steerInput = (input.IsKeyDown(Keys.A) ? 1f : 0f) - (input.IsKeyDown(Keys.D) ? 1f : 0f);
 
         State.SteeringInput = steerInput;
 
         Engine.Throttle = throttle;
 
-        UpdateVehicleSystem(brake, steer, dt);
+        UpdateVehicleSystem(brake, steerInput, dt);
     }
 
     private void UpdateVehicleSystem(float brake, float steer, float dt)
@@ -70,7 +69,7 @@ public class VehicleController(GameServiceContainer services)
         float engineTorque = Engine.GetTorque(nitroMult, Damage.Engine);
         float gearRatio = TransmissionSystem.GetRatio();
         float engineForce = engineTorque * gearRatio * 12f; // scale to world force
-
+        Engine.RPM = engineForce;
         UpdateWeatherAndTerrainGrip(engineForce, brake, steer, dt);
     }
 

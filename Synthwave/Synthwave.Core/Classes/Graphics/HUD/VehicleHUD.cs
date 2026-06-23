@@ -102,6 +102,36 @@ public class VehicleHUD
         else DrawThirdPerson(spriteBatch);
     }
 
+    private void DrawWheel(SpriteBatch spriteBatch, Vector2 dashboardOffset, int screenW, int screenH)
+    {
+        Vector2 wheelPos = new(screenW * 0.5f, screenH - 60f);
+        wheelPos += dashboardOffset;
+        Vector2 wheelOrigin = new(_wheel.Width * 0.5f, _wheel.Height * 0.5f);
+
+        spriteBatch.Draw(_wheel, wheelPos, null, Color.White, _wheelRotation, wheelOrigin, 2f, SpriteEffects.None, 0f);
+
+    }
+
+    private void DrawRPMNeedle(SpriteBatch spriteBatch, Vector2 dashboardOffset, int screenW, int screenH)
+    {
+        Vector2 rpmPos = new(screenW * 0.61f, screenH - 220f);
+        rpmPos += dashboardOffset;
+        Vector2 rpmOrigin = new(_rpmNeedle.Width * 0.5f, _rpmNeedle.Height * 0.9f);
+
+        spriteBatch.Draw(_rpmNeedle, rpmPos, null, Color.White, _rpmRotation, rpmOrigin, 1.5f, SpriteEffects.None, 0f);
+
+    }
+
+    private void DrawSpeedNeedle(SpriteBatch spriteBatch, Vector2 dashboardOffset, int screenW, int screenH)
+    {
+        Vector2 speedPos = new(screenW * 0.38f, screenH - 220f);
+        speedPos += dashboardOffset;
+        Vector2 speedOrigin = new(_speedNeedle.Width * 0.5f, _speedNeedle.Height * 0.9f);
+
+        spriteBatch.Draw(_speedNeedle, speedPos, null, Color.White, _speedRotation, speedOrigin, 1.5f, SpriteEffects.None, 0f);
+
+    }
+
     private void DrawFirstPerson(SpriteBatch spriteBatch)
     {
         GraphicsDevice device = spriteBatch.GraphicsDevice;
@@ -130,21 +160,13 @@ public class VehicleHUD
         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
         spriteBatch.Draw(_interior, screenRect, sourceRect, Color.White);
+        Vector2 dashboardOffset = new(-(offsetX - centerX),-(offsetY - centerY));
 
-        Vector2 wheelPos = new(screenW * 0.5f, screenH - 60f);
-        Vector2 wheelOrigin = new(_wheel.Width * 0.5f, _wheel.Height * 0.5f);
+        //Vector2 dashboardOffset = new(-(camOffset.X * maxOffsetX), (camOffset.Y * maxOffsetY));
 
-        spriteBatch.Draw(_wheel,wheelPos,null,Color.White,_wheelRotation,wheelOrigin,2f,SpriteEffects.None,0f);
-
-        Vector2 rpmPos = new(screenW * 0.585f, screenH - 140f);
-        Vector2 rpmOrigin = new(_rpmNeedle.Width * 0.5f, _rpmNeedle.Height * 0.9f);
-
-        spriteBatch.Draw(_rpmNeedle,rpmPos,null,Color.White,_rpmRotation,rpmOrigin,1.5f,SpriteEffects.None,0f);
-     
-        Vector2 speedPos = new(screenW * 0.43f, screenH - 140f);
-        Vector2 speedOrigin = new(_speedNeedle.Width * 0.5f, _speedNeedle.Height * 0.9f);
-
-        spriteBatch.Draw(_speedNeedle,speedPos,null,Color.White,_speedRotation,speedOrigin,1.5f,SpriteEffects.None,0f);
+        DrawWheel(spriteBatch, dashboardOffset, screenW, screenH);
+        DrawRPMNeedle(spriteBatch, dashboardOffset, screenW, screenH);
+        DrawSpeedNeedle(spriteBatch, dashboardOffset, screenW, screenH);
 
         spriteBatch.End();
     }
