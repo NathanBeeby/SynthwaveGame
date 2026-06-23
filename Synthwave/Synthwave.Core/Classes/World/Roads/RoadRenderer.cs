@@ -83,40 +83,59 @@ public class RoadRenderer(GraphicsDevice device, Effect roadEffect, Effect sidew
 
     private void DrawSidewalk(WorldChunk chunk, float time)
     {
-        if (chunk.SidewalkVB == null || chunk.SidewalkIB == null) return;
+        if (chunk.SidewalkVB == null || chunk.SidewalkIB == null)
+            return;
 
         _sidewalkEffect.Parameters["World"]?.SetValue(Matrix.Identity);
         _sidewalkEffect.Parameters["View"]?.SetValue(_camera.View);
         _sidewalkEffect.Parameters["Projection"]?.SetValue(_camera.Projection);
         _sidewalkEffect.Parameters["Time"]?.SetValue(time);
 
-        _device.BlendState = BlendState.Opaque;
+        _device.DepthStencilState = DepthStencilState.DepthRead;
+        _device.BlendState = BlendState.Additive;
+
         _device.SetVertexBuffer(chunk.SidewalkVB);
         _device.Indices = chunk.SidewalkIB;
+
         foreach (var pass in _sidewalkEffect.CurrentTechnique.Passes)
         {
             pass.Apply();
-            _device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, chunk.SidewalkIB.IndexCount / 3);
+            _device.DrawIndexedPrimitives(
+                PrimitiveType.TriangleList,
+                0, 0,
+                chunk.SidewalkIB.IndexCount / 3);
         }
+
+        _device.BlendState = BlendState.Opaque;
+        _device.DepthStencilState = DepthStencilState.Default;
     }
 
     private void DrawCentreLine(WorldChunk chunk, float time)
     {
-        if (chunk.CentreLineVB == null || chunk.CentreLineIB == null) return;
+        if (chunk.CentreLineVB == null || chunk.CentreLineIB == null)
+            return;
 
         _centreLineEffect.Parameters["World"]?.SetValue(Matrix.Identity);
         _centreLineEffect.Parameters["View"]?.SetValue(_camera.View);
         _centreLineEffect.Parameters["Projection"]?.SetValue(_camera.Projection);
         _centreLineEffect.Parameters["Time"]?.SetValue(time);
 
+        _device.DepthStencilState = DepthStencilState.DepthRead;
         _device.BlendState = BlendState.Additive;
+
         _device.SetVertexBuffer(chunk.CentreLineVB);
         _device.Indices = chunk.CentreLineIB;
+
         foreach (var pass in _centreLineEffect.CurrentTechnique.Passes)
         {
             pass.Apply();
-            _device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, chunk.CentreLineIB.IndexCount / 3);
+            _device.DrawIndexedPrimitives(
+                PrimitiveType.TriangleList,
+                0, 0,
+                chunk.CentreLineIB.IndexCount / 3);
         }
+
         _device.BlendState = BlendState.Opaque;
+        _device.DepthStencilState = DepthStencilState.Default;
     }
 }

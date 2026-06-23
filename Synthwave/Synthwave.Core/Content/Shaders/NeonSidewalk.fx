@@ -1,66 +1,67 @@
-// ━━━━━━ Kernel: Neon Square-Panel Sidewalk ━━━━━━
-// Runs on the kerb/sidewalk strips (both sides of the road). UV.x and UV.y
-// are both real world-space distances (not normalised 0..1), so TileSize
-// below is literally "metres per panel" and the seams stay square no
-// matter how long the road segment is.
-
 float4x4 World;
 float4x4 View;
 float4x4 Projection;
 
-float  Time;
-float3 TileLineColor = float3(1.0, 0.85, 0.0); // neon yellow
-float3 PanelColor    = float3(0.05, 0.04, 0.02); // dark slab fill between seams
-float  TileSize      = 3.0f;   // world units per square panel
-float  LineThickness = 0.06f;  // fraction of a tile taken by the glowing seam
-float  GlowIntensity = 2.0f;
+float Time;
+
+float3 LineColor = float3(1.0, 0.65, 0.0); // neon orange/yellow
+float GlowIntensity = 6.0;
+
+float GridScale = 3.0;
+float LineWidth = 0.06;
 
 struct VS_INPUT
 {
     float3 Position : POSITION0;
     float3 Normal   : NORMAL0;
     float2 UV       : TEXCOORD0;
-    float  RoadType : TEXCOORD1;
 };
 
 struct VS_OUTPUT
 {
     float4 Position : POSITION0;
-    float2 UV       : TEXCOORD0;
+    float2 UV : TEXCOORD0;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
 {
     VS_OUTPUT o;
 
-    float4 world = mul(float4(input.Position, 1.0), World);
+    float4 world = mul(float4(input.Position,1), World);
     float4 view  = mul(world, View);
     o.Position   = mul(view, Projection);
 
-    o.UV = input.UV;
-
+    o.UV = input.UV * GridScale;
     return o;
 }
 
-// Distance (0..1 of a tile) to the nearest seam along one axis.
-float SeamMask(float worldCoord)
+// crisp grid line function (IMPORTANT FIX)
+float GridLine(float coord)
 {
-    float cell = frac(worldCoord / TileSize);
-    float d = min(cell, 1.0 - cell);
-    return 1.0 - smoothstep(0.0, LineThickness, d);
+    float f = frac(coord);
+    float d = min(f, 1.0 - f);
+    return smoothstep(LineWidth, 0.0, d);
 }
 
 float4 PS(VS_OUTPUT input) : COLOR0
 {
-    float seamX = SeamMask(input.UV.x);
-    float seamY = SeamMask(input.UV.y);
-    float seam  = saturate(seamX + seamY);
+    float2 uv = input.UV;
 
-    float3 col = lerp(PanelColor, TileLineColor * GlowIntensity, seam);
+    float gx = frac(uv.x);
+    float gy = frac(uv.y);
 
-    return float4(saturate(col), 1.0);
+    float dx = min(gx, 1.0 - gx);
+    float dy = min(gy, 1.0 - gy);
+
+    float lineX = smoothstep(0.08, 0.0, dx);
+    float lineY = smoothstep(0.08, 0.0, dy);
+
+    float grid = max(lineX, lineY);
+
+    float3 color = float3(1.0, 0.65, 0.0) * grid * 6.0;
+
+    return float4(color, grid);
 }
-
 technique NeonSidewalk
 {
     pass P0

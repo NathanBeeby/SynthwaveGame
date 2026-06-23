@@ -255,14 +255,17 @@ public class SynthwaveWorld
 
     private void DrawRoads(GraphicsDevice device, List<WorldChunk> chunks, WeatherSystem weather, float time)
     {
-        device.BlendState = BlendState.Opaque;
+     //   device.BlendState = BlendState.Opaque;
 
         float wetness = MathHelper.Clamp(weather.RainAmount, 0f, 1f);
 
         foreach (var chunk in chunks)
         {
-            if (!chunk.IsBuilt || chunk.RoadVB == null) continue;
+            if (!chunk.IsBuilt) continue;
+
             _roadRenderer.Draw(chunk, time, wetness);
+            //if (!chunk.IsBuilt || chunk.RoadVB == null) continue;
+            //_roadRenderer.Draw(chunk, time, wetness);
         }
     }
 
